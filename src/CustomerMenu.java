@@ -2,6 +2,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CustomerMenu {
+    private Scanner customer;
+    CustomerMenu(Scanner scanner){
+        this.customer = scanner;
+    }
     void startCustomerMenu(){
         Scanner customerAction = new Scanner(System.in);
         System.out.println("Welcome to the System Bank.\nUse numbers to choose");
@@ -16,8 +20,10 @@ public class CustomerMenu {
         try{
             switch (option) {
                 case 0:
+                    addCustomer();
                     break;
                 case 1:
+
                     break;
                 case 2:
                     break;
@@ -31,5 +37,24 @@ public class CustomerMenu {
             System.out.println("Please try again");
             customerAction.nextInt();
         }
+    }
+    void addCustomer(){
+        String firstName = customer.nextLine();
+        String middleName = customer.nextLine();
+        String lastName = customer.nextLine();
+        String sex = customer.nextLine();
+        int age = customer.nextInt();
+
+        Customer customerDetails = new Customer(1, firstName, middleName, lastName, sex, age);
+        customerDetails.introduce();
+    }
+    void updateCustomer(){
+
+    }
+    void editCustomer(){
+
+    }
+    void deleteCustomer(){
+
     }
 }
