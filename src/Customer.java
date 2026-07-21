@@ -1,7 +1,7 @@
 public class Customer{
-    int UserId;
+    private final int UserId;
     private String FirstName, MiddleName, LastName, Sex;
-    int Age;
+    private int Age;
 
     public Customer(int Id, String FirstName, String MiddleName, String LastName, String Sex, int Age){
         this.UserId = Id;
@@ -11,16 +11,39 @@ public class Customer{
         this.Sex = Sex;
         this.Age = Age;
     }
+
     public String introduce(){
-        return "Hello " + FirstName + "! Your ID is " + Id;
+        return "Hello " + FirstName + " " + MiddleName + " "+ LastName + "! Your ID is " + UserId;
     }
-
-     void setUserId(int Id){
-        this.UserId = Id;
+    void setFirstName (String FirstName){
+        this.FirstName = FirstName;
     }
-
-    void setMiddleName (){
-
+    void setMiddleName(String MiddleName){
+        this.MiddleName = MiddleName;
+    }
+    void setLastName (String LastName){
+        this.LastName = LastName;
+    }
+    void setSex(String Sex){
+        this.Sex = Sex;
+    }
+    void setAge(int Age){
+        this.Age = Age;
+    }
+    int getUserId(){
+       return UserId;
+    }
+    String getFirstName(){
+        return FirstName;
+    }
+    String getMiddleName(){
+        return MiddleName;
+    }
+    String getLastName(){
+        return LastName;
+    }
+    String getSex(){
+        return Sex;
     }
 }
 
