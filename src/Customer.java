@@ -1,5 +1,3 @@
-package Customer;
-
 public class Customer{
     private final int UserId;
     private String FirstName, MiddleName, LastName, Sex;

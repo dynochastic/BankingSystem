@@ -1,5 +1,3 @@
-package Bank;
-
 public class BankAccount {
      private int AccountNumber;
      private double Balance;
