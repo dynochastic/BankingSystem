@@ -1,12 +1,14 @@
-public class BankAccount {
+public class BankAccount extends Customer{
      private int AccountNumber;
      private double Balance;
-     private int CustomerNumber;
 
-    BankAccount(int AccountNumber, double Balance, int CustomerNumber){
+    BankAccount(int AccountNumber, double Balance){
         this.AccountNumber = AccountNumber;
         this.Balance = Balance;
-        this.CustomerNumber = CustomerNumber;
+    }
+    BankAccount(){
+        this.AccountNumber = 0;
+        this.Balance = 0;
     }
 
 }
