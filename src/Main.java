@@ -8,5 +8,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Menu menu = new Menu(sc);
         menu.startBank();
+
     }
 }

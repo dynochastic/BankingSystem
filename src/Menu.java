@@ -37,6 +37,7 @@ public class Menu {
         }
         catch (InputMismatchException e){
             System.out.println("Please try again");
+            scanner.next();
         }
     }
 

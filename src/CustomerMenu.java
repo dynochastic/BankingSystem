@@ -39,14 +39,31 @@ public class CustomerMenu {
         }
     }
     void addCustomer(){
-        String firstName = customer.nextLine();
-        String middleName = customer.nextLine();
-        String lastName = customer.nextLine();
-        String sex = customer.nextLine();
+        System.out.println("Last Name: ");
+        String lastName = customer.nextLine().toUpperCase();
+        System.out.println("First Name: ");
+        String firstName = customer.nextLine().toUpperCase();
+        System.out.println("Middle Name: ");
+        String middleName = customer.nextLine().toUpperCase();
+
+        System.out.println("Sex: (1. Male, 2. Female, 3. Prefer not to Say)\n: ");
+        int sexOption = customer.nextLine();
+        char sex = null;
+        switch (sexOption){
+            case 0: sex = "Male"; break;
+            case 1: sex = 'Female'; break;
+            case 2: sex = 'Pre  ';
+            default:
+                System.out.println("Invalid Layout.");
+
+        }
+        System.out.println("Age: ");
+
         int age = customer.nextInt();
 
         Customer customerDetails = new Customer(1, firstName, middleName, lastName, sex, age);
         customerDetails.introduce();
+
     }
     void updateCustomer(){
 

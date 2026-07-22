@@ -1,9 +1,10 @@
 public class Customer{
     private final int UserId;
-    private String FirstName, MiddleName, LastName, Sex;
+    private String FirstName, MiddleName, LastName;
+    char Sex;
     private int Age;
 
-    public Customer(int Id, String FirstName, String MiddleName, String LastName, String Sex, int Age){
+    public Customer(int Id, String FirstName, String MiddleName, String LastName, char Sex, int Age){
         this.UserId = Id;
         this.FirstName = FirstName;
         this.MiddleName = MiddleName;
@@ -23,7 +24,7 @@ public class Customer{
     void setLastName (String LastName){
         this.LastName = LastName;
     }
-    void setSex(String Sex){
+    void setSex(char Sex){
         this.Sex = Sex;
     }
     void setAge(int Age){
@@ -41,7 +42,7 @@ public class Customer{
     String getLastName(){
         return LastName;
     }
-    String getSex(){
+    char getSex(){
         return Sex;
     }
 }
