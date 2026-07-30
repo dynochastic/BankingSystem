@@ -1,19 +1,26 @@
+package models;
+
+import java.time.LocalDate;
+
 public class Customer{
     private final int UserId;
     private String FirstName, MiddleName, LastName;
     char Sex;
+    private LocalDate BirthDate;
     private int Age;
 
-    public Customer(int Id, String FirstName, String MiddleName, String LastName, char Sex, int Age){
+    public Customer(int Id, String FirstName, String MiddleName, String LastName, LocalDate BirthDate,
+    char Sex, int Age){
         this.UserId = Id;
         this.FirstName = FirstName;
         this.MiddleName = MiddleName;
         this.LastName = LastName;
         this.Sex = Sex;
+        this.BirthDate = BirthDate;
         this.Age = Age;
     }
-    public String introduce(){
-        return "Hello " + FirstName + " " + MiddleName + " "+ LastName + "! Your ID is " + UserId;
+    public void confirm(){
+        System.out.println("Account ID: "+ UserId + "\nFull Name: ");
     }
     void setFirstName (String FirstName){
         this.FirstName = FirstName;
@@ -24,9 +31,7 @@ public class Customer{
     void setLastName (String LastName){
         this.LastName = LastName;
     }
-    void setSex(char Sex){
-        this.Sex = Sex;
-    }
+    void setBirthDate(LocalDate BirthDate){ this.BirthDate = BirthDate; }
     void setAge(int Age){
         this.Age = Age;
     }
@@ -45,6 +50,11 @@ public class Customer{
     char getSex(){
         return Sex;
     }
+    int getAge(){
+        return Age;
+    }
+    LocalDate getBirthDate(){return BirthDate;}
+
 }
 
 

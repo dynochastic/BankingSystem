@@ -1,3 +1,4 @@
+package menu;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,12 +19,10 @@ public class Menu {
         System.out.print("Choose an option: ");
 
         int option = scanner.nextInt();
-
         try{
             switch (option) {
                 case 0:
-                    CustomerMenu custMenu = new CustomerMenu(scanner);
-                    custMenu.startCustomerMenu();
+
                     break;
                 case 1:
                     break;
@@ -42,4 +41,3 @@ public class Menu {
     }
 
 }
-// Next Goal Abstraction for customer

@@ -1,9 +1,10 @@
-public class CustomerAddress extends Customer{
+package models;
+
+public class CustomerAddress {
     private String Brgy, Municipality, Province, Country;
     private int Postal;
-    CustomerAddress(int id, String firstName,String middleName,String lastName, int age , String sex,
+    CustomerAddress(int id, String firstName,String middleName,String lastName, int age , char sex,
                     String brgy,  String municipality, String province, String country, int postal){
-        super(id, firstName, middleName, lastName, sex, age);
         this.Brgy = brgy;
         this.Municipality = municipality;
         this.Province = province;
@@ -15,4 +16,6 @@ public class CustomerAddress extends Customer{
     void setProvince(String province){this.Province = province;}
     void setCountry(String country){ this.Country = country; }
     void setPostal(int postal){ this.Postal = postal; }
+
+
 }
