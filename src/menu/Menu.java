@@ -22,7 +22,7 @@ public class Menu {
         try{
             switch (option) {
                 case 0:
-
+                    CustomerService custMenu = new CustomerService();
                     break;
                 case 1:
                     break;
