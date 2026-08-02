@@ -19,10 +19,12 @@ public class Menu {
         System.out.print("Choose an option: ");
 
         int option = scanner.nextInt();
+        scanner.nextLine();
         try{
             switch (option) {
                 case 0:
-                    CustomerService custMenu = new CustomerService();
+                    CustomerService custMenu = new CustomerService(scanner);
+                    custMenu.customerMenu();
                     break;
                 case 1:
                     break;
@@ -36,7 +38,7 @@ public class Menu {
         }
         catch (InputMismatchException e){
             System.out.println("Please try again");
-            scanner.next();
+            scanner.nextLine();
         }
     }
 
