@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class Menu {
     private final Scanner scanner;
 
-    Menu(Scanner scanner){
+    public Menu(Scanner scanner){
         this.scanner = scanner;
     }
-    void startBank() {
+    public void startBank() {
         String[] choices = {"Customer", "Account", "Transaction", "Balance Inqury"};
 
         System.out.println("Welcome to the System Bank.\nUse numbers to choose");

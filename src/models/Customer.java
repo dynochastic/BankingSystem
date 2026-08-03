@@ -55,6 +55,13 @@ public class Customer{
     }
     LocalDate getBirthDate(){return BirthDate;}
 
+    void displayInfo(){
+        System.out.println("\n--- User Information ---");
+        System.out.println("Name: " + this.FirstName + " " + this.MiddleName + " " + this.LastName);
+        System.out.println("Age: " + this.Age);
+        System.out.println("Birthdate: " + this.BirthDate);
+        System.out.println("Sex: " + this.Sex);
+    }
 }
 
 
