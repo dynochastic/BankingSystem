@@ -1,6 +1,7 @@
 package menu;
 
 import models.Customer;
+import models.CustomerAddress;
 
 import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
@@ -23,34 +24,74 @@ public class CustomerService{
     void addCustomer(){
 
         System.out.print("Enter First name: ");
-        String firstName = scanner.nextLine();
+        String firstName = scanner.nextLine().toUpperCase();
 
         System.out.print("Enter Middle name: ");
-        String middleName = scanner.nextLine();
+        String middleName = scanner.nextLine().toUpperCase();
 
         System.out.print("Enter Last name: ");
-        String lastName = scanner.nextLine();
+        String lastName = scanner.nextLine().toUpperCase();
 
-        System.out.println("Enter Birthdate dd-mm-yyyy: ");
+        System.out.println("Enter Birthdate (dd-MM-yyyy): ");
         String birthDate = scanner.nextLine();
+
         LocalDate localdate = null;
 
-        try{
+        try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             localdate = LocalDate.parse(birthDate, formatter);
-        }
-        catch (DateTimeParseException e){
-            System.out.println("Error: Invalid date format. Please use DD-MM-YYYY." + e);
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Invalid date format. Please use DD-MM-YYYY.");
         }
 
         System.out.print("Enter Age: ");
         int age = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print("Enter Sex: F/M");
-        char sex = scanner.nextLine().charAt(0);
+        System.out.print("Enter Sex (F/M): ");
+        char sex = Character.toUpperCase(scanner.nextLine().charAt(0));
 
-        Customer customer = new Customer(1, firstName, middleName, lastName, localdate, sex, age);
+        System.out.print("Enter Barangay: ");
+        String brgy = scanner.nextLine().toUpperCase();
+
+        System.out.print("Enter Municipality/City: ");
+        String municipality = scanner.nextLine().toUpperCase();
+
+        System.out.print("Enter Province: ");
+        String province = scanner.nextLine().toUpperCase();
+
+        System.out.print("Enter Country: ");
+        String country = scanner.nextLine().toUpperCase();
+
+        System.out.print("Enter Postal Code: ");
+        int postal = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("\n--- User Information ---");
+        System.out.println("Name: " + firstName + " " + middleName + " " + lastName);
+        System.out.println("Age: " +age);
+        System.out.println("Birthdate: " + birthDate);
+        System.out.println("Sex: " + sex);
+        System.out.println("Address: " + brgy + ", " + municipality + ", " + province + ", " + country + " " + postal);
+
+        System.out.println("Confirm? Y/N");
+        char yn = scanner.nextLine().toUpperCase().charAt(0);
+        boolean isDone = true;
+
+        while(isDone == true){
+            if (yn == 'Y'){
+                Customer customer = new Customer(1, firstName, middleName, lastName, localdate, sex, age);
+                CustomerAddress address  = new CustomerAddress(customer, brgy, municipality, province, country, postal);
+                System.out.println("Customer has been created");
+            }
+            else if (yn == 'N'){
+                customerMenu();
+
+            }
+            else{
+                System.out.println("Customer has been created");
+            }
+        }
 
 
     }

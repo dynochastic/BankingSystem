@@ -4,7 +4,7 @@ public class CustomerAddress {
     private String Brgy, Municipality, Province, Country;
     private int Postal;
     private Customer customer;
-    CustomerAddress(Customer customer, String brgy,  String municipality, String province, String country, int postal){
+    public CustomerAddress(Customer customer, String brgy,  String municipality, String province, String country, int postal){
         this.customer = customer;
         this.Brgy = brgy;
         this.Municipality = municipality;
@@ -22,4 +22,8 @@ public class CustomerAddress {
     String getProvince(){ return Province; }
     String getCountry(){ return Country; }
     int getPostal(){ return Postal; }
+
+    void DisplayAddress(){
+        System.out.println("Address: " + this.Brgy + ", " + this.Municipality + ", " + this.Province + ", " + this.Country + " " + this.Postal);
+    }
 }
