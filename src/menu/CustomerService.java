@@ -78,18 +78,21 @@ public class CustomerService{
         char yn = scanner.nextLine().toUpperCase().charAt(0);
         boolean isDone = true;
 
-        while(isDone == true){
+        while(true){
             if (yn == 'Y'){
                 Customer customer = new Customer(1, firstName, middleName, lastName, localdate, sex, age);
                 CustomerAddress address  = new CustomerAddress(customer, brgy, municipality, province, country, postal);
                 System.out.println("Customer has been created");
+                customerMenu();
+                break;
             }
             else if (yn == 'N'){
+                System.out.println("Returned to menu");
                 customerMenu();
-
+                break;
             }
             else{
-                System.out.println("Customer has been created");
+                System.out.println("Please try again");
             }
         }
 
