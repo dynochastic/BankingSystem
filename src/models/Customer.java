@@ -35,27 +35,27 @@ public class Customer{
     void setAge(int Age){
         this.Age = Age;
     }
-    int getUserId(){
+    public int getUserId(){
        return UserId;
     }
-    String getFirstName(){
+    public String getFirstName(){
         return FirstName;
     }
-    String getMiddleName(){
+    public String getMiddleName(){
         return MiddleName;
     }
-    String getLastName(){
+    public String getLastName(){
         return LastName;
     }
-    char getSex(){
+    public char getSex(){
         return Sex;
     }
-    int getAge(){
+    public int getAge(){
         return Age;
     }
-    LocalDate getBirthDate(){return BirthDate;}
+    public LocalDate getBirthDate(){return BirthDate;}
 
-    void displayInfo(){
+    public void displayInfo(){
         System.out.println("\n--- User Information ---");
         System.out.println("Name: " + this.FirstName + " " + this.MiddleName + " " + this.LastName);
         System.out.println("Age: " + this.Age);
