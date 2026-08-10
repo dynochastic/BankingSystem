@@ -146,7 +146,30 @@ public class CustomerService{
     }
     void editCustomer(){
         System.out.print("What do you want to edit.");
-        String editDetails = scanner.nextLine();
+        String[] choices = {"User Primary Details", " User Address"};
+        System.out.print(choices[0] + "\n"+ choices[1]);
+        int editDetails = scanner.nextInt();
+        scanner.nextLine();
+
+        while (true) {
+            try{
+                switch (editDetails) {
+                    case 0:
+                        String[] userDetails = {"Full Name", "Birthdate", "Sex,",};
+
+                        break;
+                    case 1:
+                        String[] address = {"User Primary Details", " User Address"};
+
+                        break;
+                    default:
+                        System.out.println("Option Invalid.");
+                }
+            }
+            catch (InputMismatchException e){
+                System.out.println("Select 1 or 2");
+            }
+        }
 
     }
     void searchCustomer(){
