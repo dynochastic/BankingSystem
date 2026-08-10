@@ -55,12 +55,21 @@ public class Customer{
     }
     public LocalDate getBirthDate(){return BirthDate;}
 
-    public void displayInfo(){
+    public void displayInfoByID(int ID){
         System.out.println("\n--- User Information ---");
-        System.out.println("Name: " + this.FirstName + " " + this.MiddleName + " " + this.LastName);
-        System.out.println("Age: " + this.Age);
-        System.out.println("Birthdate: " + this.BirthDate);
-        System.out.println("Sex: " + this.Sex);
+        System.out.println("Customer ID: " + getUserId());
+        System.out.println("Name: " + getFirstName()+ " " + getMiddleName() + " " + getLastName());
+        System.out.println("Age: " + getAge());
+        System.out.println("Birthdate: " +  getBirthDate());
+        System.out.println("Sex: " + getSex());
+    }
+    public void displayInfoByName(String name){
+        System.out.println("\n--- User Information ---");
+        System.out.println("Customer ID: " + getUserId());
+        System.out.println("Name: " + getFirstName()+ " " + getMiddleName() + " " + getLastName());
+        System.out.println("Age: " + getAge());
+        System.out.println("Birthdate: " +  getBirthDate());
+        System.out.println("Sex: " + getSex());
     }
 }
 

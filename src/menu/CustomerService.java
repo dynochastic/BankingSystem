@@ -145,6 +145,8 @@ public class CustomerService{
 
     }
     void editCustomer(){
+        System.out.print("What do you want to edit.");
+        String editDetails = scanner.nextLine();
 
     }
     void searchCustomer(){
@@ -156,15 +158,15 @@ public class CustomerService{
         Matcher matcherID = pattern.matcher(name);
 
         //Regex for name search
-        Pattern patternName = Pattern.compile("^[A-Za-z]+(?:\\\\s+[A-Za-z]+)*$\"");
+        Pattern patternName = Pattern.compile("^[A-Za-z]+(?:\\\\s+[A-Za-z]+)*$");
         Matcher matcherName = patternName.matcher(name);
 
         if (matcherID.matches()){
             int id = Integer.parseInt(name);
-
+            customer.displayInfoByID(id);
         }
         else if(matcherName.matches()){
-
+            customer.displayInfoByName(name);
         }
     }
 }
