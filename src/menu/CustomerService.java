@@ -2,11 +2,11 @@ package menu;
 
 import models.Customer;
 import models.CustomerAddress;
+import services.customerServiceLogic;
 
 import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -15,9 +15,11 @@ import java.util.regex.Pattern;
 
 public class CustomerService{
 
-    public Scanner scanner;
+    private final Scanner scanner;
+    private customerServiceLogic customerService;
     private Customer customer;
     private CustomerAddress address;
+
     CustomerService(Scanner scanner){
         this.scanner = scanner;
     }
@@ -146,8 +148,8 @@ public class CustomerService{
     }
     void editCustomer(){
         System.out.print("What do you want to edit.");
-        String[] choices = {"User Primary Details", " User Address"};
-        System.out.print(choices[0] + "\n"+ choices[1]);
+        System.out.print("0. User Primary Details.\n1. User Address.\n: ");
+
         int editDetails = scanner.nextInt();
         scanner.nextLine();
 
@@ -155,12 +157,10 @@ public class CustomerService{
             try{
                 switch (editDetails) {
                     case 0:
-                        String[] userDetails = {"Full Name", "Birthdate", "Sex,",};
-
+                        customerService.editCustomerDetails();
                         break;
                     case 1:
-                        String[] address = {"User Primary Details", " User Address"};
-
+                        customerService.editCustomerAddress();
                         break;
                     default:
                         System.out.println("Option Invalid.");
