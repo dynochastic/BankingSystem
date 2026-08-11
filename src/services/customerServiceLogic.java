@@ -12,7 +12,8 @@ public class customerServiceLogic {
     public void editCustomerAddress(){
 
     }
-    void addCustomer() {
+    void addCustomerDetails() {
 
     }
+
 }
