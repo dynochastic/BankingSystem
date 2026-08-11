@@ -17,7 +17,6 @@ public class CustomerService{
 
     private final Scanner scanner;
     private customerServiceLogic customerService;
-    private Customer customer;
 
     CustomerService(Scanner scanner){
         this.scanner = scanner;
@@ -37,13 +36,16 @@ public class CustomerService{
         try{
             switch (option) {
                 case 0:
-                    customerService.editCustomerDetails();
+                    customerService.addCustomerDetails();
                     break;
                 case 1:
+                    customerService.deleteCustomer();
                     break;
                 case 2:
+                    editCustomer();
                     break;
                 case 3:
+                    customerService.searchCustomer();
                     break;
                 default:
                     System.out.println("Option Invalid.");
@@ -54,9 +56,7 @@ public class CustomerService{
             scanner.nextLine();
         }
     }
-    void deleteCustomer(){
 
-    }
     void editCustomer(){
         System.out.print("What do you want to edit.");
         System.out.print("0. User Primary Details.\n1. User Address.\n: ");

@@ -17,6 +17,7 @@ public class customerServiceLogic {
     private Customer customer;
     private CustomerAddress address;
     private CustomerService userUI;
+
     // To edit name date sex birthdate
     public void editCustomerDetails(){
 
@@ -113,7 +114,7 @@ public class customerServiceLogic {
     }
 
     //Allows Customer Search
-    void searchCustomer(){
+    public void searchCustomer(){
         System.out.print("Search by ID or Name: ");
         String name = scanner.nextLine();
 
@@ -132,5 +133,8 @@ public class customerServiceLogic {
         else if(matcherName.matches()){
             customer.displayInfoByName(name);
         }
+    }
+    public void deleteCustomer(){
+
     }
 }
