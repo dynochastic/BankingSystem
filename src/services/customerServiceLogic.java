@@ -20,6 +20,11 @@ public class customerServiceLogic {
 
     // To edit name date sex birthdate
     public void editCustomerDetails(){
+        System.out.print("What do you want to change?");
+        System.out.print("");
+
+        String[] editDetails =  {"Name", "Birthday", "Sex",};
+        System.out.println("");
 
     }
 
@@ -28,6 +33,8 @@ public class customerServiceLogic {
 
     }
     public void addCustomerDetails() {
+
+
         System.out.print("Enter First name: ");
         String firstName = scanner.nextLine().toUpperCase();
 
@@ -47,18 +54,16 @@ public class customerServiceLogic {
                 System.out.println("Enter Birthdate (mm-dd-yyyy): ");
                 birthDate = scanner.nextLine();
 
+                //Parse from string to DateTime Format
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
                 localdate = LocalDate.parse(birthDate, formatter);
+
+                // Flag to stop the loop
                 isFormatted = true;
             } catch (DateTimeParseException e) {
                 System.out.println("Error: Invalid date format. Please use DD-MM-YYYY.");
             }
         }
-
-        System.out.print("Enter Age: ");
-        int age = scanner.nextInt();
-        scanner.nextLine();
-
         System.out.print("Enter Sex (F/M): ");
         char sex = Character.toUpperCase(scanner.nextLine().charAt(0));
 
@@ -80,7 +85,6 @@ public class customerServiceLogic {
 
         System.out.println("\n--- User Information ---");
         System.out.println("Name: " + firstName + " " + middleName + " " + lastName);
-        System.out.println("Age: " +age);
         System.out.println("Birthdate: " + birthDate);
         System.out.println("Sex: " + sex);
         System.out.println("Address: " + brgy + ", " + municipality + ", " + province + ", " + country + " " + postal);
@@ -92,10 +96,10 @@ public class customerServiceLogic {
         while(true){
             //Customer Creation
             if (yn == 'Y'){
-                customer = new Customer(1, firstName, middleName, lastName, localdate, sex, age);
+                customer = new Customer(1, firstName, middleName, lastName, localdate, sex);
                 address  = new CustomerAddress(customer, brgy, municipality, province, country, postal);
 
-                Customer dummy = new Customer(2,"john", "D", "Doe", LocalDate.now() , 'M', 23);
+                Customer dummy = new Customer(2,"john", "D", "Doe", LocalDate.now() , 'M');
 
 
                 System.out.println("Customer has been created");

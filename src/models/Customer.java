@@ -7,17 +7,15 @@ public class Customer{
     private String FirstName, MiddleName, LastName;
     char Sex;
     private LocalDate BirthDate;
-    private int Age;
 
     public Customer(int Id, String FirstName, String MiddleName, String LastName, LocalDate BirthDate,
-    char Sex, int Age){
+    char Sex){
         this.UserId = Id;
         this.FirstName = FirstName;
         this.MiddleName = MiddleName;
         this.LastName = LastName;
         this.Sex = Sex;
         this.BirthDate = BirthDate;
-        this.Age = Age;
     }
     public void confirm(){
         System.out.println("Account ID: "+ UserId + "\nFull Name: ");
@@ -32,9 +30,6 @@ public class Customer{
         this.LastName = LastName;
     }
     void setBirthDate(LocalDate BirthDate){ this.BirthDate = BirthDate; }
-    void setAge(int Age){
-        this.Age = Age;
-    }
     public int getUserId(){
        return UserId;
     }
@@ -59,7 +54,6 @@ public class Customer{
         System.out.println("\n--- User Information ---");
         System.out.println("Customer ID: " + getUserId());
         System.out.println("Name: " + getFirstName()+ " " + getMiddleName() + " " + getLastName());
-        System.out.println("Age: " + getAge());
         System.out.println("Birthdate: " +  getBirthDate());
         System.out.println("Sex: " + getSex());
     }
@@ -67,7 +61,6 @@ public class Customer{
         System.out.println("\n--- User Information ---");
         System.out.println("Customer ID: " + getUserId());
         System.out.println("Name: " + getFirstName()+ " " + getMiddleName() + " " + getLastName());
-        System.out.println("Age: " + getAge());
         System.out.println("Birthdate: " +  getBirthDate());
         System.out.println("Sex: " + getSex());
     }
