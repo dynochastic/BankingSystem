@@ -45,9 +45,6 @@ public class Customer{
     public char getSex(){
         return Sex;
     }
-    public int getAge(){
-        return Age;
-    }
     public LocalDate getBirthDate(){return BirthDate;}
 
     public void displayInfoByID(int ID){

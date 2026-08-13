@@ -58,6 +58,7 @@ public class CustomerService{
     }
 
     void editCustomer(){
+        customerService.searchCustomer();
         System.out.print("What do you want to edit.");
         System.out.print("0. User Primary Details.\n1. User Address.\n: ");
 

@@ -17,14 +17,16 @@ public class customerServiceLogic {
     private Customer customer;
     private CustomerAddress address;
     private CustomerService userUI;
-
     // To edit name date sex birthdate
     public void editCustomerDetails(){
-        System.out.print("What do you want to change?");
-        System.out.print("");
+        String[] editDetails =  {"Name", "Birthday", "Sex"};
 
-        String[] editDetails =  {"Name", "Birthday", "Sex",};
-        System.out.println("");
+        System.out.print("What do you want to change?");
+        for(int i = 0; i <= editDetails.length - 1 ; i++){
+            System.out.println( editDetails[i] +".) "+ editDetails[i]);
+        }
+        int edit = scanner.nextInt();
+        scanner.nextLine();
 
     }
 
@@ -120,22 +122,25 @@ public class customerServiceLogic {
     //Allows Customer Search
     public void searchCustomer(){
         System.out.print("Search by ID or Name: ");
-        String name = scanner.nextLine();
+        String nameOrID = scanner.nextLine();
 
         //for ID search
         Pattern pattern = Pattern.compile("^[1-9]\\d*$");
-        Matcher matcherID = pattern.matcher(name);
+        Matcher matcherID = pattern.matcher(nameOrID);
 
-        //Regex for name search
+        //Regex for nameOrID search
         Pattern patternName = Pattern.compile("^[A-Za-z]+(?:\\\\s+[A-Za-z]+)*$");
-        Matcher matcherName = patternName.matcher(name);
+        Matcher matcherName = patternName.matcher(nameOrID);
 
         if (matcherID.matches()){
-            int id = Integer.parseInt(name);
+            int id = Integer.parseInt(nameOrID);
             customer.displayInfoByID(id);
         }
         else if(matcherName.matches()){
-            customer.displayInfoByName(name);
+            customer.displayInfoByName(nameOrID);
+        }
+        else{
+            System.out.println("Cannot find the Customer");
         }
     }
     public void deleteCustomer(){
