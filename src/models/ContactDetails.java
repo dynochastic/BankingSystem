@@ -6,7 +6,7 @@ public class ContactDetails {
     private String telNumber;
 
     // Constructor
-    public ContactDetails(String phoneNumber, String emailAddress, String telNumber) {
+    public ContactDetails(Customer customer, String phoneNumber, String emailAddress, String telNumber) {
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.telNumber = telNumber;
@@ -16,7 +16,7 @@ public class ContactDetails {
     }
 
     public String getEmailAddress() {
-        return this.emailAddress;
+        return  this.emailAddress;
     }
 
     public String getTelephoneNumber() {
