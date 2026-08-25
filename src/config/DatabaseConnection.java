@@ -6,8 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    String CONNECTION = url;
-    String url = "jdbc:postgresql://localhost:5432/bank_management_db";
+    String CONNECTION = "jdbc:postgresql://localhost:5432/bank_management_db";
 
     //This method will be used for connecting database to the program
     void Connect(){

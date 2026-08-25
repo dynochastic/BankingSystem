@@ -3,14 +3,24 @@ package models;
 import java.time.LocalDate;
 
 public class Customer{
-    private final int UserId;
+    private long customerNo;
     private String FirstName, MiddleName, LastName;
     char Sex;
     private LocalDate BirthDate;
 
-    public Customer(int Id, String FirstName, String MiddleName, String LastName, LocalDate BirthDate,
-    char Sex){
-        this.UserId = Id;
+    //Creating customer to the Database
+    public Customer(String firstName, String middleName, String lastName, LocalDate birthDate, char sex){
+        this.FirstName = firstName;
+        this.MiddleName = middleName;
+        this.LastName = middleName;
+        this.Sex = sex;
+        this.BirthDate = birthDate;
+    }
+
+    //Loading Customer from the Database
+    public Customer(long customerNo, String FirstName, String MiddleName, String LastName, LocalDate BirthDate,
+                    char Sex){
+        this.customerNo = customerNo;
         this.FirstName = FirstName;
         this.MiddleName = MiddleName;
         this.LastName = LastName;
@@ -18,7 +28,7 @@ public class Customer{
         this.BirthDate = BirthDate;
     }
     public void confirm(){
-        System.out.println("Account ID: "+ UserId + "\nFull Name: ");
+        System.out.println("Account ID: "+ this.customerNo + "\nFull Name: ");
     }
     void setFirstName (String FirstName){
         this.FirstName = FirstName;
@@ -26,12 +36,10 @@ public class Customer{
     void setMiddleName(String MiddleName){
         this.MiddleName = MiddleName;
     }
-    void setLastName (String LastName){
-        this.LastName = LastName;
-    }
+    void setLastName (String LastName){ this.LastName = LastName; }
     void setBirthDate(LocalDate BirthDate){ this.BirthDate = BirthDate; }
-    public int getUserId(){
-       return UserId;
+    public long getCustomerNo(){
+       return customerNo;
     }
     public String getFirstName(){
         return FirstName;
@@ -47,6 +55,7 @@ public class Customer{
     }
     public LocalDate getBirthDate(){return BirthDate;}
 
+    /***
     public void displayInfoByID(int ID){
         System.out.println("\n--- User Information ---");
         System.out.println("Customer ID: " + getUserId());
@@ -61,6 +70,7 @@ public class Customer{
         System.out.println("Birthdate: " +  getBirthDate());
         System.out.println("Sex: " + getSex());
     }
+     ***/
 }
 
 
