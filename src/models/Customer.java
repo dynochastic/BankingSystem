@@ -27,9 +27,7 @@ public class Customer{
         this.Sex = Sex;
         this.BirthDate = BirthDate;
     }
-    public void confirm(){
-        System.out.println("Account ID: "+ this.customerID + "\nFull Name: ");
-    }
+
     void setFirstName (String FirstName){
         this.FirstName = FirstName;
     }
@@ -53,22 +51,6 @@ public class Customer{
     }
     public LocalDate getBirthDate(){return BirthDate;}
 
-    /***
-    public void displayInfoByID(int ID){
-        System.out.println("\n--- User Information ---");
-        System.out.println("Customer ID: " + getUserId());
-        System.out.println("Name: " + getFirstName()+ " " + getMiddleName() + " " + getLastName());
-        System.out.println("Birthdate: " +  getBirthDate());
-        System.out.println("Sex: " + getSex());
-    }
-    public void displayInfoByName(String name){
-        System.out.println("\n--- User Information ---");
-        System.out.println("Customer ID: " + getUserId());
-        System.out.println("Name: " + getFirstName()+ " " + getMiddleName() + " " + getLastName());
-        System.out.println("Birthdate: " +  getBirthDate());
-        System.out.println("Sex: " + getSex());
-    }
-     ***/
 }
 
 
