@@ -17,16 +17,15 @@ public class Menu {
         System.out.println("======================================");
         System.out.println("        WELCOME TO SYSTEM BANK");
         System.out.println("======================================");
-        System.out.println();
-        System.out.println("  Your trusted partner in banking.");
-        System.out.println();
-        System.out.println("  Please select an option using the numbers provided below.");
+        System.out.println("    Your trusted partner in banking.  ");
         System.out.println("======================================");
+
         System.out.println("1. Customer");
         System.out.println("2. Account");
         System.out.println("3. Transaction");
         System.out.println("4. Balance Inquiry");
-        System.out.print("Choose an option: ");
+
+        System.out.println("Please select an option using the numbers provided below: ");
 
         int option = scanner.nextInt();
         scanner.nextLine();

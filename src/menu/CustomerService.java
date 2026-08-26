@@ -21,6 +21,7 @@ public class CustomerService{
 
     CustomerService(Scanner scanner){
         this.scanner = scanner;
+
     }
 
     public void customerMenu(){
@@ -144,11 +145,12 @@ public class CustomerService{
         char yn = scanner.nextLine().toUpperCase().charAt(0);
 
         if (yn == 'Y'){
-            this.customer = new Customer(firstName, middleName, lastName, localdate, sex);
-            this.address = new CustomerAddress(customer, brgy, municipality,province,country, postal);
-            this.contacts = new ContactDetails(customer, mobileNo, email, telNo);
+            this.address = new CustomerAddress(brgy, municipality,province,country, postal);
+            this.contacts = new ContactDetails(mobileNo, email, telNo);
+            this.customer = new Customer(firstName, middleName, lastName, localdate, sex, address, contacts);
 
 
+            controller.registerCustomer(customer);
         }
     }
     public void searchCustomer(){

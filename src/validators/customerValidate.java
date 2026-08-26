@@ -6,7 +6,7 @@ import models.CustomerAddress;
 
 public class customerValidate {
 
-    public boolean isValidCustomer(Customer customer, ContactDetails contact, CustomerAddress address) {
+    public boolean isValidCustomer(Customer customer) {
 
         if (customer == null) { return false; }
 
@@ -31,31 +31,45 @@ public class customerValidate {
                 || Character.isWhitespace(customer.getSex())) {
             return false;
         }
-
-        if (contact.getPhoneNumber() == null || contact.getPhoneNumber().isBlank()) {
+        if (customer.getContact() == null) {
             return false;
         }
 
-        if (contact.getEmailAddress() == null || contact.getEmailAddress().isBlank()) {
+        if (customer.getContact().getPhoneNumber() == null
+                || customer.getContact().getPhoneNumber().isBlank()) {
             return false;
         }
 
-        if (address.getBrgy() == null || address.getBrgy().isBlank()) {
+        if (customer.getContact().getEmailAddress() == null
+                || customer.getContact().getEmailAddress().isBlank()) {
             return false;
         }
 
-        if (address.getMunicipality() == null || address.getMunicipality().isBlank()) {
+        if (customer.getAddress() == null) {
             return false;
         }
 
-        if (address.getProvince() == null || address.getProvince().isBlank()) {
+        if (customer.getAddress().getBrgy() == null
+                || customer.getAddress().getBrgy().isBlank()) {
             return false;
         }
 
-        if (address.getCountry() == null || address.getCountry().isBlank()) {
+        if (customer.getAddress().getMunicipality() == null
+                || customer.getAddress().getMunicipality().isBlank()) {
             return false;
         }
 
-        return address.getPostal() != null && !address.getPostal().isBlank();
+        if (customer.getAddress().getProvince() == null
+                || customer.getAddress().getProvince().isBlank()) {
+            return false;
+        }
+
+        if (customer.getAddress().getCountry() == null
+                || customer.getAddress().getCountry().isBlank()) {
+            return false;
+        }
+
+        return customer.getAddress().getPostal() != null
+                && !customer.getAddress().getPostal().isBlank();
     }
 }
