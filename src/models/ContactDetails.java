@@ -6,7 +6,7 @@ public class ContactDetails {
     private String telNumber;
 
     // Constructor
-    public ContactDetails(Customer customer, String phoneNumber, String emailAddress, String telNumber) {
+    public ContactDetails(String phoneNumber, String emailAddress, String telNumber) {
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.telNumber = telNumber;

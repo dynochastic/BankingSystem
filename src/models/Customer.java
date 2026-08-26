@@ -8,24 +8,31 @@ public class Customer{
     char Sex;
     private LocalDate BirthDate;
 
+    private CustomerAddress address;
+    private ContactDetails contact;
+
     //Creating customer
-    public Customer(String firstName, String middleName, String lastName, LocalDate birthDate, char sex){
+    public Customer(String firstName, String middleName, String lastName, LocalDate birthDate, char sex, CustomerAddress address, ContactDetails contact ){
         this.FirstName = firstName;
         this.MiddleName = middleName;
         this.LastName = lastName;
         this.Sex = sex;
         this.BirthDate = birthDate;
+        this.address = address;
+        this.contact = contact;
     }
 
     //Loading Customer from the Database
     public Customer(long customerNo, String FirstName, String MiddleName, String LastName, LocalDate BirthDate,
-                    char Sex){
+                    char Sex, CustomerAddress address, ContactDetails contact){
         this.customerID = customerNo;
         this.FirstName = FirstName;
         this.MiddleName = MiddleName;
         this.LastName = LastName;
         this.Sex = Sex;
         this.BirthDate = BirthDate;
+        this.address = address;
+        this.contact = contact;
     }
 
     void setFirstName (String FirstName){
@@ -51,6 +58,20 @@ public class Customer{
     }
     public LocalDate getBirthDate(){return BirthDate;}
 
+    //Address
+    public void setAddress(CustomerAddress address){
+        this.address = address;
+    }
+    public void setContactDetails(ContactDetails contact){
+        this.contact = contact;
+    }
+    public CustomerAddress getAddress(){
+        return this.address;
+    }
+
+    public ContactDetails getContact() {
+        return this.contact;
+    }
 }
 
 

@@ -1,11 +1,9 @@
 package models;
 
 public class CustomerAddress {
-    private Customer customer;
 
     private String Brgy, Municipality, Province, Country , Postal;
-    public CustomerAddress(Customer customer, String brgy,  String municipality, String province, String country, String postal){
-        this.customer = customer;
+    public CustomerAddress(String brgy,  String municipality, String province, String country, String postal){
         this.Brgy = brgy;
         this.Municipality = municipality;
         this.Province = province;
