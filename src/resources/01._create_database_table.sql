@@ -16,9 +16,8 @@ CREATE TABLE address(
 	brgy VARCHAR(50) NOT NULL,
 	municipality VARCHAR(50) NOT NULL,
 	province VARCHAR(50) NOT NULL,
-	postal_code INTEGER NOT NULL,
+	postal_code VARCHAR(4) NOT NULL,
 	country VARCHAR(50) NOT NULL,
-	address_type varchar(10), -- perma or present mailing
 	FOREIGN KEY(customer_id)
 		REFERENCES customers(customer_id)
 
