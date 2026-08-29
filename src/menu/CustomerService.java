@@ -21,6 +21,7 @@ public class CustomerService{
 
     CustomerService(Scanner scanner){
         this.scanner = scanner;
+        controller = new CustomerController();
 
     }
 
@@ -75,7 +76,7 @@ public class CustomerService{
         boolean isFormatted = false;
         while(!isFormatted){
             try {
-                System.out.println("Enter Birthdate (mm-dd-yyyy): ");
+                System.out.print("Enter Birthdate (mm-dd-yyyy): ");
                 birthDate = scanner.nextLine();
 
                 //Parse from string to DateTime Format
@@ -110,7 +111,7 @@ public class CustomerService{
         System.out.print("Enter Mobile Number Code: ");
         String mobileNo = scanner.nextLine();
 
-        System.out.print("Enter Email Address Code: ");
+        System.out.print("Enter Email: ");
         String email = scanner.nextLine();
 
         System.out.print("Enter Telephone Number: ");
@@ -139,6 +140,7 @@ public class CustomerService{
 
         System.out.println("\n========================================");
         System.out.println("Please review the information above.");
+
         System.out.print("Confirm customer information? (Y/N): ");
 
         System.out.print("Confirm? Y/N: ");
