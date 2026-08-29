@@ -25,9 +25,11 @@ public class Menu {
         System.out.println("3. Transaction");
         System.out.println("4. Balance Inquiry");
 
-        System.out.println("Please select an option using the numbers provided below: ");
+        System.out.println("======================================");
 
+        System.out.print("Please select an option using the numbers provided above: ");
         int option = scanner.nextInt();
+
         scanner.nextLine();
         try{
             switch (option) {
