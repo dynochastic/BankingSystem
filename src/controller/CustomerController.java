@@ -11,19 +11,30 @@ public class CustomerController {
 
     private customerValidate validation;
     private CustomerRepository customerRepository;
+    public
+    CustomerController(){
+        this.validation = new customerValidate();
+        this.customerRepository = new CustomerRepository();
+    }
 
     public  void registerCustomer(Customer customer){
-        if (validation.isValidCustomer(customer)){
+        try{
+            if (validation.isValidCustomer(customer)){
 
-            customerRepository.createCustomer(customer);
+                customerRepository.createCustomer(customer);
 
-            // All customer information is valid
-            System.out.println("Customer is ADDED.");
+                // All customer information is valid
+                System.out.println("Controller: Customer is ADDED.");
 
-        } else {
-            // At least one field is invalid
-            System.out.println("Customer information is invalid.");
-            return;
+            } else {
+                // At least one field is invalid
+                System.out.println("Customer information is invalid.");
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+
         }
+
     }
 }
