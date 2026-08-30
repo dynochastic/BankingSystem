@@ -24,7 +24,7 @@ CREATE TABLE address(
 );
 
 
-CREATE TABLE contact_details(
+CREATE TABLE contacts(
 	contact_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	customer_id BIGINT,
 	mobile_number VARCHAR(15) NOT NULL,
