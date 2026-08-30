@@ -14,7 +14,8 @@ public class DatabaseConnection {
         String username = System.getenv("DB_USERNAME");
         String password = System.getenv("DB_PASSWORD");
 
-        Connection connection =DriverManager.getConnection(CONNECTION,username,password);
+
+        Connection connection = DriverManager.getConnection(CONNECTION,username,password);
 
         System.out.println("Connection Connected Successfully");
 
