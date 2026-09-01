@@ -165,11 +165,22 @@ public class CustomerService{
 
         System.out.print("What do you want to change?");
         System.out.print("1. Name");
-        System.out.print("2. Birthday");
         System.out.print("3. Sex");
+        System.out.print("2. Birthday");
+        System.out.print("4. Address");
+        System.out.print("4. Address");
+        System.out.print("5. Contact Details");
 
         int edit = scanner.nextInt();
         scanner.nextLine();
+
+        if(edit == 1){
+
+        }
+        else if(edit == 2){
+
+        }
+
 
     }
 
