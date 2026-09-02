@@ -1,4 +1,4 @@
-package menu;
+package views.customer;
 
 import controller.CustomerController;
 import models.ContactDetails;
@@ -8,56 +8,19 @@ import models.CustomerAddress;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class CustomerService{
+public class CreateCustomer {
 
-    private final Scanner scanner;
     private Customer customer;
     private CustomerAddress address;
     private ContactDetails contacts;
     private CustomerController controller;
 
-    CustomerService(Scanner scanner){
+    private Scanner scanner;
+
+    CreateCustomer(Scanner scanner){
         this.scanner = scanner;
-        controller = new CustomerController();
-
-    }
-
-    public void customerMenu(){
-        System.out.println("Select what you want to do.");
-        System.out.println("1. Add Customer");
-        System.out.println("2. Delete Customer");
-        System.out.println("3. Edit Customer Details");
-        System.out.println("4. Search Customer");
-
-        System.out.print("Choose an option: ");
-        int option = scanner.nextInt();
-        scanner.nextLine();
-
-        try{
-            switch (option) {
-                case 1:
-                    addCustomerDetails();
-                    break;
-                case 2:
-                    deleteCustomer();
-                    break;
-                case 3:
-                    editCustomer();
-                    break;
-                case 4:
-                    searchCustomer();
-                    break;
-                default:
-                    System.out.println("Option Invalid.");
-            }
-        }
-        catch (InputMismatchException e){
-            System.out.println("Please try again");
-            scanner.nextLine();
-        }
     }
     public void addCustomerDetails() {
         System.out.print("Enter First name: ");
@@ -155,33 +118,4 @@ public class CustomerService{
             controller.registerCustomer(customer);
         }
     }
-    public void searchCustomer(){
-
-    }
-    public void deleteCustomer(){
-
-    }
-    public void editCustomer(){
-
-        System.out.print("What do you want to change?");
-        System.out.print("1. Name");
-        System.out.print("3. Sex");
-        System.out.print("2. Birthday");
-        System.out.print("4. Address");
-        System.out.print("4. Address");
-        System.out.print("5. Contact Details");
-
-        int edit = scanner.nextInt();
-        scanner.nextLine();
-
-        if(edit == 1){
-
-        }
-        else if(edit == 2){
-
-        }
-
-
-    }
-
 }
