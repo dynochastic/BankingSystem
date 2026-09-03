@@ -1,6 +1,6 @@
-package menu;
+package views;
 
-import models.Customer;
+import views.customer.CustomerService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -33,17 +33,11 @@ public class Menu {
         scanner.nextLine();
         try{
             switch (option) {
-                case 1:
-                    custAction.customerMenu();
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                default:
-                    System.out.println("Option Invalid.");
+                case 1 -> custAction.customerMenu();
+                case 2 -> custAction.customerMenu();
+                case 3 -> custAction.customerMenu();
+                case 4 -> custAction.customerMenu();
+                default -> System.out.println("Option Invalid.");
             }
         }
         catch (InputMismatchException e){
