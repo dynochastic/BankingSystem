@@ -17,7 +17,7 @@ public class CustomerController {
         this.customerRepository = new CustomerRepository();
     }
 
-    public  void registerCustomer(Customer customer){
+    public void registerCustomer(Customer customer){
         try{
             if (validation.isValidCustomer(customer)){
 
@@ -36,5 +36,16 @@ public class CustomerController {
 
         }
 
+    }
+
+    public void updateCustomer(Customer customer){
+
+
+        try{
+        }
+        catch (Exception e){
+            System.out.println("Error occured");
+            e.printStackTrace();
+        }
     }
 }

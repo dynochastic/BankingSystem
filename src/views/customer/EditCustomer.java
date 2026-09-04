@@ -14,8 +14,6 @@ public class EditCustomer {
 
     public void editCustomer() {
 
-        System.out.print("Search customer ID");
-
         int customerID = scanner.nextInt();
         scanner.nextLine();
 
@@ -78,7 +76,7 @@ public class EditCustomer {
     }
     public void editSex(){
         System.out.print("Enter new sex (M/F): ");
-        String sex = scanner.nextLine();
+        char sex = scanner.nextLine().charAt(0);
     }
 
     public void editBirthdate(){
@@ -107,5 +105,5 @@ public class EditCustomer {
     }
     public void editContacts(){
 
-        }
+    }
 }
