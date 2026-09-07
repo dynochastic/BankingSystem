@@ -17,7 +17,7 @@ public class CustomerService{
     private SearchCustomer searchCustomer;
     private DeleteCustomer deleteCustomer;
 
-    CustomerService(Scanner scanner){
+    public CustomerService(Scanner scanner){
         this.scanner = scanner;
         this.createCustomer = new CreateCustomer(scanner);
         this.editCustomer = new EditCustomer(scanner);
