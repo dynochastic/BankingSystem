@@ -20,7 +20,12 @@ public class CreateCustomer {
     private Scanner scanner;
 
     CreateCustomer(Scanner scanner){
+
         this.scanner = scanner;
+        customer = null;
+        address = null;
+        contacts = null;
+        this.controller = new CustomerController();
     }
     public void addCustomerDetails() {
         System.out.print("Enter First name: ");
@@ -71,7 +76,7 @@ public class CreateCustomer {
         System.out.print("Enter Postal Code: ");
         String postal = scanner.nextLine();
 
-        System.out.print("Enter Mobile Number Code: ");
+        System.out.print("Enter Mobile Number: ");
         String mobileNo = scanner.nextLine();
 
         System.out.print("Enter Email: ");
@@ -109,13 +114,15 @@ public class CreateCustomer {
         System.out.print("Confirm? Y/N: ");
         char yn = scanner.nextLine().toUpperCase().charAt(0);
 
+
         if (yn == 'Y'){
             this.address = new CustomerAddress(brgy, municipality,province,country, postal);
             this.contacts = new ContactDetails(mobileNo, email, telNo);
             this.customer = new Customer(firstName, middleName, lastName, localdate, sex, address, contacts);
-
-
-            controller.registerCustomer(customer);
         }
+
+         long id = controller.registerCustomer(customer);
+
+        System.out.println("\u001B[32m" + "Customer NO. " + id + " Created");
     }
 }

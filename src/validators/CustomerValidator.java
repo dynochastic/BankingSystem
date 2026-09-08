@@ -2,7 +2,7 @@ package validators;
 
 import models.Customer;
 
-public class customerValidate {
+public class CustomerValidator {
 
     public boolean isValidCustomer(Customer customer) {
 

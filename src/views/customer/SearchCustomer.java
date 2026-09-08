@@ -18,10 +18,10 @@ public class SearchCustomer {
 
     public void searchCustomer(){
 
-        System.out.print("============================");
+        System.out.println("============================");
 
-        System.out.print("1. Search by ID");
-        System.out.print("2. Search by Name");
+        System.out.println("1. Search by ID");
+        System.out.println("2. Search by Name");
 
         System.out.print("How would you like to search?: ");
 
@@ -29,8 +29,8 @@ public class SearchCustomer {
         scanner.nextLine();
 
         switch (search){
-            case 1: searchByID();
-            case 2: searchByName();
+            case 1 -> searchByID();
+            case 2 -> searchByName();
         }
 
 
@@ -40,25 +40,18 @@ public class SearchCustomer {
         System.out.print("Search ID: ");
         long Id = scanner.nextLong();
 
+        customer = controller.findById(Id);
 
-        boolean found = controller.findById(Id);
-
-        if (found) displayDetails();
-        else System.out.println("Cannot be found");
-
-
+        displayDetails(customer);
     }
 
     public void searchByName(){
-
         System.out.print("Search Name: ");
         String name = scanner.nextLine().strip();
 
-
-
     }
 
-    public void displayDetails(){
+    public void displayDetails(Customer customer){
 
         System.out.println("\n========================================");
         System.out.println("          CUSTOMER INFORMATION          ");
@@ -104,6 +97,4 @@ public class SearchCustomer {
 
         System.out.println("\n========================================");
     }
-
-
 }

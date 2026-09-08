@@ -1,51 +1,42 @@
 package controller;
 
 import models.Customer;
-import models.CustomerAddress;
-import models.ContactDetails;
 
 import repositories.CustomerRepository;
-import validators.customerValidate;
+import validators.CustomerValidator;
+
 
 public class CustomerController {
 
-    private customerValidate validation;
+    private CustomerValidator validation;
     private CustomerRepository customerRepository;
     public
     CustomerController(){
-        this.validation = new customerValidate();
+        this.validation = new CustomerValidator();
         this.customerRepository = new CustomerRepository();
     }
 
-    public void registerCustomer(Customer customer){
-        try{
-            if (validation.isValidCustomer(customer)){
+    public long registerCustomer(Customer customer) {
 
-                customerRepository.createCustomer(customer);
-
-                // All customer information is valid
-                System.out.println("Controller: Customer is ADDED.");
-
-            } else {
-                // At least one field is invalid
-                System.out.println("Customer information is invalid.");
-
+        try {
+            if (!validation.isValidCustomer(customer)) {
+                return 0;
             }
-        }catch (Exception e){
-            e.printStackTrace();
-
+            return customerRepository.createCustomer(customer);
         }
-
+        catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
-    public void updateCustomer(Customer customer){
-
-
+    public Customer findById(long Id){
         try{
+            return customerRepository.findCustomerById(Id);
         }
         catch (Exception e){
-            System.out.println("Error occured");
-            e.printStackTrace();
+           e.printStackTrace();
+           return null;
         }
     }
 }
