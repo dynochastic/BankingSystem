@@ -19,9 +19,9 @@ SELECT
     ct.email_address,
     ct.telephone_number
 FROM customers c
-         JOIN address a
+         LEFT JOIN address a
               ON c.customer_id = a.customer_id
-         JOIN contacts ct
+         LEFT JOIN contacts ct
               ON c.customer_id = ct.customer_id;
 
 
@@ -42,8 +42,8 @@ SELECT
     ct.email_address,
     ct.telephone_number
 FROM customers c
-         JOIN address a
+         LEFT JOIN address a
               ON c.customer_id = a.customer_id
-         JOIN contacts ct
+         LEFT JOIN contacts ct
               ON c.customer_id = ct.customer_id
 WHERE c.customer_id = 1;
