@@ -20,7 +20,6 @@ public class CreateCustomer {
     private Scanner scanner;
 
     CreateCustomer(Scanner scanner){
-
         this.scanner = scanner;
         customer = null;
         address = null;
@@ -120,9 +119,7 @@ public class CreateCustomer {
             this.contacts = new ContactDetails(mobileNo, email, telNo);
             this.customer = new Customer(firstName, middleName, lastName, localdate, sex, address, contacts);
         }
+        long id = controller.registerCustomer(customer);
 
-         long id = controller.registerCustomer(customer);
-
-        System.out.println("\u001B[32m" + "Customer NO. " + id + " Created");
-    }
+        System.out.println("\u001B[32mCustomer NO. " + id + " Created\u001B[0m");    }
 }

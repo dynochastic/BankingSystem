@@ -1,10 +1,5 @@
 package views.customer;
 
-import controller.CustomerController;
-import models.ContactDetails;
-import models.Customer;
-import models.CustomerAddress;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -26,29 +21,41 @@ public class CustomerService{
     }
 
     public void customerMenu(){
-        System.out.println("Select what you want to do.");
-        System.out.println("1. Add Customer");
-        System.out.println("2. Delete Customer");
-        System.out.println("3. Edit Customer Details");
-        System.out.println("4. Search Customer");
 
-        System.out.print("Choose an option: ");
-        int option = scanner.nextInt();
-        scanner.nextLine();
 
-        try{
-            switch (option) {
-                case 1 -> createCustomer.addCustomerDetails();
-                case 2 -> deleteCustomer.deleteCustomer();
-                case 3 -> editCustomer.editCustomer();
-                case 4 -> searchCustomer.searchCustomer();
-                default -> System.out.println("Option Invalid.");
+        while (true){
+            try{
+                System.out.println("Select what you want to do.");
+                System.out.println("1. Add Customer");
+                System.out.println("2. Search Customer");
+                System.out.println("3. Edit Customer Details");
+                System.out.println("4. Delete Customer");
+                System.out.println("5. Back");
+
+                System.out.print("Choose an option: ");
+                int option = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (option) {
+                case 1 -> {
+                    createCustomer.addCustomerDetails();
+                    break;
+                }
+                    case 2 -> searchCustomer.searchCustomer();
+                    case 3 -> editCustomer.editCustomer();
+                    case 4 -> deleteCustomer.deleteCustomer();
+                    case 5 -> {
+                        return ;
+                    }
+                    default -> System.out.println("\u001B[31mOption Invalid.\u001B[0m");
+                }
+            }
+            catch (InputMismatchException e){
+                System.out.println("\u001B[31mPlease try again.\u001B[0m");
+                scanner.nextLine();
             }
         }
-        catch (InputMismatchException e){
-            System.out.println("Please try again");
-            scanner.nextLine();
-        }
+
     }
 
 }
