@@ -5,6 +5,8 @@ import models.Customer;
 import repositories.CustomerRepository;
 import validators.CustomerValidator;
 
+import java.util.List;
+
 
 public class CustomerController {
 
@@ -37,6 +39,15 @@ public class CustomerController {
         catch (Exception e){
            e.printStackTrace();
            return null;
+        }
+    }
+    public List<Customer> findByName(String name){
+
+        try{
+            return customerRepository.findCustomerByName(name);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

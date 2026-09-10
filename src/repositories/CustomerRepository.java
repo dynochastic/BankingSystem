@@ -5,8 +5,9 @@
     import models.Customer;
     import models.CustomerAddress;
 
-    import javax.xml.transform.Result;
     import java.sql.*;
+    import java.util.ArrayList;
+    import java.util.List;
 
 
     public class CustomerRepository {
@@ -30,7 +31,7 @@
 
             try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                  PreparedStatement addressStatement = connection.prepareStatement(query2);
-                 PreparedStatement contactStatement = connection.prepareStatement(query3);) {
+                 PreparedStatement contactStatement = connection.prepareStatement(query3)) {
 
                 statement.setString(1, customer.getFirstName());
                 statement.setString(2, customer.getMiddleName());
@@ -80,70 +81,107 @@
             }
             return customer_id;
         }
-        public void editCustomer(Customer customer) throws SQLException{
 
-            String query = "UPDATE customers SET first_name = ? WHERE customer_id = ?";
-            String query1 = "UPDATE customers SET second_name = ? WHERE customer_id = ?";
+        public List<Customer> findCustomerByName(String name) throws SQLException{
 
+            List<Customer> customers = new ArrayList<>();
+
+            String query = "SELECT " +
+                    "c.customer_id, " +
+                    "c.first_name, " + "c.middle_name, " + "c.last_name, " +
+                    "c.birth_date, " + "c.sex, " +
+                    "a.brgy, " + "a.municipality, " + "a.province, " + "a.postal_code, " + "a.country, " +
+                    "ct.mobile_number, " + "ct.email_address, " + "ct.telephone_number " +
+                    "FROM customers c " +
+                    "LEFT JOIN address a " +
+                    "ON c.customer_id = a.customer_id " +
+                    "LEFT JOIN contacts ct " +
+                    "ON c.customer_id = ct.customer_id WHERE c.first_name LIKE ? OR " +
+                    "c.middle_name LIKE ?" + " OR c.last_name LIKE ?;";
             try (Connection connection = connectDB.connect();
                  PreparedStatement preparedStatement = connection.prepareStatement(query))
             {
-                preparedStatement.setString(1, customer.getFirstName());
-            }catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-        public Customer findCustomerById(long id) throws SQLException {
+                preparedStatement.setString(1,  "%"+ name + "%");
+                preparedStatement.setString(2,  "%"+ name + "%");
+                preparedStatement.setString(3,  "%"+ name + "%");
 
-            String query = "SELECT c.customer_id," +
-                    "c.first_name, " +
-                    "c.middle_name, " +
-                    "c.last_name, " +
-                    "c.birth_date, " +
-                    "c.sex, " +
-                    "a.brgy, " +
-                    "a.municipality, " +
-                    "a.province, " +
-                    "a.postal_code, " +
-                    "a.country, " +
-                    "ct.mobile_number, " +
-                    "ct.email_address, " +
-                    "ct.telephone_number FROM customers c LEFT JOIN address a ON " +
-                    "c.customer_id = a.customer_id LEFT JOIN contacts ct ON a.customer_id = ct.customer_id " +
-                    "WHERE c.customer_id = ?";
+                ResultSet resultSet = preparedStatement.executeQuery();
 
-            try (Connection connection = connectDB.connect();
-                 PreparedStatement statement = connection.prepareStatement(query)) {
-
-                statement.setLong(1, id);
-
-                ResultSet result = statement.executeQuery();
-
-                if(result.next()){
+                while (resultSet.next()){
                     CustomerAddress address = new CustomerAddress(
-                            result.getString("brgy"),
-                            result.getString("municipality"),
-                            result.getString("province"),
-                            result.getString("postal_code"),
-                            result.getString("country")
+                            resultSet.getString("brgy"),
+                            resultSet.getString("municipality"),
+                            resultSet.getString("province"),
+                            resultSet.getString("postal_code"),
+                            resultSet.getString("country")
                     );
                     ContactDetails contacts = new ContactDetails(
-                            result.getString("mobile_number"),
-                            result.getString("email_address"),
-                            result.getString("telephone_number")
+                            resultSet.getString("mobile_number"),
+                            resultSet.getString("email_address"),
+                            resultSet.getString("telephone_number")
                     );
 
                     Customer customer = new Customer(
-                            result.getLong("customer_id"),
-                            result.getString("first_name"),
-                            result.getString("middle_name"),
-                            result.getString("last_name"),
-                            result.getDate("birth_date").toLocalDate(),
-                            result.getString("sex").charAt(0),
+                            resultSet.getLong("customer_id"),
+                            resultSet.getString("first_name"),
+                            resultSet.getString("middle_name"),
+                            resultSet.getString("last_name"),
+                            resultSet.getDate("birth_date").toLocalDate(),
+                            resultSet.getString("sex").charAt(0),
                             address, contacts
-                            );
+                    );
 
-                    return customer;
+                    customers.add(customer);
+            }
+            }catch (Exception e){
+                e.printStackTrace();
+
+            }
+            return customers;
+        }
+
+        public Customer findCustomerById(long id) throws SQLException {
+
+            String query = "SELECT c.customer_id," +
+                    "c.first_name, " + "c.middle_name, " + "c.last_name, " +
+                    "c.birth_date, " + "c.sex, " +
+                    "a.brgy, " + "a.municipality, " + "a.province, " + "a.postal_code, " + "a.country, " +
+                    "ct.mobile_number, " + "ct.email_address, " +
+                    "ct.telephone_number FROM customers c LEFT JOIN address a ON " +
+                    "c.customer_id = a.customer_id LEFT JOIN contacts ct ON a.customer_id = ct.customer_id " +
+                    "WHERE c.customer_id = ?;";
+
+                try (Connection connection = connectDB.connect();
+                     PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setLong(1, id);
+
+                    ResultSet result = statement.executeQuery();
+
+                    if(result.next()){
+                        CustomerAddress address = new CustomerAddress(
+                                result.getString("brgy"),
+                                result.getString("municipality"),
+                                result.getString("province"),
+                                result.getString("postal_code"),
+                                result.getString("country")
+                        );
+                        ContactDetails contacts = new ContactDetails(
+                                result.getString("mobile_number"),
+                                result.getString("email_address"),
+                                result.getString("telephone_number")
+                        );
+
+                        Customer customer = new Customer(
+                                result.getLong("customer_id"),
+                                result.getString("first_name"),
+                                result.getString("middle_name"),
+                                result.getString("last_name"),
+                                result.getDate("birth_date").toLocalDate(),
+                                result.getString("sex").charAt(0),
+                                address, contacts
+                                );
+
+                        return customer;
 
                 }
             }
