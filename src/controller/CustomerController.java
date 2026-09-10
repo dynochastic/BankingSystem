@@ -50,4 +50,9 @@ public class CustomerController {
             return null;
         }
     }
+
+    public boolean deleteCustomer(Customer customer){
+
+        return customerRepository.deleteCustomer(customer);
+    }
 }
