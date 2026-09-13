@@ -5,6 +5,7 @@ import models.Customer;
 import repositories.CustomerRepository;
 import validators.CustomerValidator;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -53,6 +54,16 @@ public class CustomerController {
 
     public boolean deleteCustomer(Customer customer){
 
-        return customerRepository.deleteCustomer(customer);
+        try {
+            return customerRepository.deleteCustomer(customer);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+        catch (NullPointerException npe){
+            npe.printStackTrace();
+            return false;
+        }
     }
 }

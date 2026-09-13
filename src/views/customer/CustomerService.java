@@ -37,10 +37,7 @@ public class CustomerService{
                 scanner.nextLine();
 
                 switch (option) {
-                case 1 -> {
-                    createCustomer.addCustomerDetails();
-                    break;
-                }
+                case 1 -> createCustomer.addCustomerDetails();
                     case 2 -> searchCustomer.searchCustomer();
                     case 3 -> editCustomer.editCustomer();
                     case 4 -> deleteCustomer.deleteCustomer();
