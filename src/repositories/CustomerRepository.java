@@ -190,15 +190,11 @@
             }
             return null;
         }
+
         public boolean deleteCustomer(Customer customer) throws SQLException{
 
 
-            String query = " DELETE FROM customers c ON CASCADE" +
-                    "LEFT JOIN address a " +
-                       "ON c.customer_id = a.customer_id" +
-                    "LEFT JOIN contacts ct" +
-                        "ON c.customer_id = ct.customer_id" +
-                    "WHERE c.customer_id = ?;";
+            String query = "DELETE FROM customers WHERE customer_id = ?;";
 
             try (Connection connection = connectDB.connect();
             PreparedStatement statement = connection.prepareStatement(query);){
