@@ -16,7 +16,6 @@ public class CreateCustomer {
     private CustomerAddress address;
     private ContactDetails contacts;
     private CustomerController controller;
-
     private Scanner scanner;
 
     CreateCustomer(Scanner scanner){
