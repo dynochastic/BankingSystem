@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Customer{
     private long customerID;
     private String FirstName, MiddleName, LastName;
-    char Sex;
+    private char sex;
     private LocalDate BirthDate;
 
     private CustomerAddress address;
@@ -16,7 +16,7 @@ public class Customer{
         this.FirstName = firstName;
         this.MiddleName = middleName;
         this.LastName = lastName;
-        this.Sex = sex;
+        this.sex = sex;
         this.BirthDate = birthDate;
         this.address = address;
         this.contact = contact;
@@ -24,12 +24,12 @@ public class Customer{
 
     //Loading Customer from the Database
     public Customer(long customerNo, String FirstName, String MiddleName, String LastName, LocalDate BirthDate,
-                    char Sex, CustomerAddress address, ContactDetails contact){
+                     char sex, CustomerAddress address, ContactDetails contact){
         this.customerID = customerNo;
         this.FirstName = FirstName;
         this.MiddleName = MiddleName;
         this.LastName = LastName;
-        this.Sex = Sex;
+        this.sex = sex;
         this.BirthDate = BirthDate;
         this.address = address;
         this.contact = contact;
@@ -54,7 +54,7 @@ public class Customer{
         return LastName;
     }
     public char getSex(){
-        return Sex;
+        return sex;
     }
     public LocalDate getBirthDate(){return BirthDate;}
 

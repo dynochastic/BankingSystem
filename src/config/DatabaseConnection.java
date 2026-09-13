@@ -17,8 +17,6 @@ public class DatabaseConnection {
 
         Connection connection = DriverManager.getConnection(CONNECTION,username,password);
 
-        System.out.println("Connection Connected Successfully");
-
         return connection;
     }
 }
