@@ -46,8 +46,7 @@ CREATE TABLE bank_accounts(
 	balance DECIMAL(19,2) NOT NULL DEFAULT 0.00,
 
 
-	FOREIGN KEY(customer_id) REFERENCES customers(customer_id)
-                          ON DELETE CASCADE
+	FOREIGN KEY(customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
 
 CREATE TABLE savings_account(
@@ -57,7 +56,7 @@ CREATE TABLE savings_account(
 
 );
 
-CREATE TABLE checking_accounts(
+CREATE TABLE checking_account(
 	account_id INT PRIMARY KEY REFERENCES bank_accounts(account_id) ON DELETE CASCADE ,
 	overdraft_limit DECIMAL(15,2) DEFAULT 0.00, -- P0 means overdraft is turned off
 	overdraft_interest_rate DECIMAL(5,4) DEFAULT 0.00,
