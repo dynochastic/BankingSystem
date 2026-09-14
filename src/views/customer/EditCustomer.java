@@ -1,5 +1,8 @@
 package views.customer;
 
+import controller.CustomerController;
+import models.Customer;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,35 +10,50 @@ import java.util.Scanner;
 
 public class EditCustomer {
 
+    CustomerController controller;
     private Scanner scanner;
+    private Customer customer;
     EditCustomer(Scanner scanner){
         this.scanner = scanner;
+        controller = new CustomerController();
     }
 
     public void editCustomer() {
 
-        int customerID = scanner.nextInt();
-        scanner.nextLine();
+        long customerID;
+        while (true){
 
+            System.out.println("Enter the ID of the user to be edited: ");
+            customerID = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.println("1. Name");
-        System.out.println("2. Sex");
-        System.out.println("3. Birthday");
-        System.out.println("4. Address Details");
-        System.out.println("5. Contact Details");
+            customer = controller.findById(customerID);
 
-        System.out.print("What do you want to update? ");
+            if (customer.getCustomerID() == 0 || customer == null){
+                System.out.println("Customer does not exist");
+                return;
+            }
+            CustomerDisplayDetails.displayDetails(customer);
 
-        int edit = scanner.nextInt();
-        scanner.nextLine();
-        while(edit <= 0|| edit >= 6){
-            switch (edit) {
-                case 1 -> editName();
-                case 2 -> editSex();
-                case 3 -> editBirthdate();
-                case 4 -> editAddress();
-                case 5 -> editContacts();
-                default -> System.out.println("Please try again.");
+            System.out.println("1. Name");
+            System.out.println("2. Sex");
+            System.out.println("3. Birthday");
+            System.out.println("4. Address Details");
+            System.out.println("5. Contact Details");
+
+          System.out.print("What do you want to update? ");
+
+            int edit = scanner.nextInt();
+            scanner.nextLine();
+            while(edit <= 0|| edit >= 6){
+                switch (edit) {
+                    case 1 -> editName();
+                    case 2 -> editSex();
+                    case 3 -> editBirthdate();
+                    case 4 -> editAddress();
+                    case 5 -> editContacts();
+                    default -> System.out.println("Please try again.");
+                }
             }
         }
 
