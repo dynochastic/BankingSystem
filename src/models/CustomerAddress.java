@@ -49,8 +49,4 @@ public class CustomerAddress {
     public String getPostal() {
         return Postal;
     }
-
-    void DisplayAddress(){
-        System.out.println("Address: " + this.Brgy + ", " + this.Municipality + ", " + this.Province + ", " + this.Country + " " + this.Postal);
-    }
 }

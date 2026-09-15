@@ -35,14 +35,17 @@ public class Customer{
         this.contact = contact;
     }
 
-    void setFirstName (String FirstName){
+    public void setFirstName (String FirstName){
         this.FirstName = FirstName;
     }
-    void setMiddleName(String MiddleName){
+    public void setMiddleName(String MiddleName){
         this.MiddleName = MiddleName;
     }
-    void setLastName (String LastName){ this.LastName = LastName; }
-    void setBirthDate(LocalDate BirthDate){ this.BirthDate = BirthDate; }
+    public void setLastName (String LastName){ this.LastName = LastName; }
+    public void setBirthDate(LocalDate BirthDate){ this.BirthDate = BirthDate; }
+    public void setSex(char sex){
+        this.sex = sex;
+    }
     public long getCustomerID(){return customerID;}
     public String getFirstName(){
         return FirstName;
