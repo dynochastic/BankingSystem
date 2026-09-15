@@ -22,7 +22,6 @@ public class EditCustomer {
 
         long customerID;
         while (true){
-
             System.out.println("Enter the ID of the user to be edited: ");
             customerID = scanner.nextInt();
             scanner.nextLine();
@@ -73,28 +72,31 @@ public class EditCustomer {
             case 1:
                 System.out.print("Enter new first name: ");
                 String firstName = scanner.nextLine();
-                // update first name here
+                customer.setFirstName(firstName);
                 break;
 
             case 2:
                 System.out.print("Enter new middle name: ");
                 String middleName = scanner.nextLine();
-                // update middle name here
+                customer.setFirstName(middleName);
+
                 break;
 
             case 3:
                 System.out.print("Enter new last name: ");
                 String lastName = scanner.nextLine();
-                // update last name here
+                customer.setFirstName(lastName);
                 break;
 
             default:
                 System.out.println("Invalid selection.");
         }
     }
+
     public void editSex(){
         System.out.print("Enter new sex (M/F): ");
         char sex = scanner.nextLine().charAt(0);
+        customer.setSex(sex);
     }
 
     public void editBirthdate(){
@@ -110,6 +112,7 @@ public class EditCustomer {
                 //Parse from string to DateTime Format
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
                 localdate = LocalDate.parse(birthDate, formatter);
+                customer.setBirthDate(localdate);
 
                 // Flag to stop the loop
                 isFormatted = true;
@@ -120,8 +123,85 @@ public class EditCustomer {
     }
     public void editAddress(){
 
+
+        System.out.print("1. Brgy ");
+        System.out.print("2. Municipality ");
+        System.out.print("3. Province ");
+        System.out.print("4. Country ");
+        System.out.print("5 . Postal ");
+        System.out.print("Select what to update: ");
+
+
+        System.out.print("Select what to update: ");
+
+        int address = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (address) {
+            case 1:
+                System.out.print("Enter new barangay: ");
+                String brgy = scanner.nextLine();
+                customer.getAddress().setBrgy(brgy);
+                controller.updateDetails(customer);
+                break;
+
+            case 2:
+                System.out.print("Enter new municipality: ");
+                String municipality = scanner.nextLine();
+                customer.getAddress().setMunicipality(municipality);
+                break;
+
+            case 3:
+                System.out.print("Enter new province: ");
+                String province = scanner.nextLine();
+                customer.getAddress().setProvince(province);
+                break;
+            case 4:
+                System.out.print("Enter new country: ");
+                String country = scanner.nextLine();
+                customer.getAddress().setCountry(country);
+                break;
+
+            case 5:
+                System.out.print("Enter new postal: ");
+                String postal = scanner.nextLine();
+                customer.getAddress().setMunicipality(postal);
+                break;
+
+            default:
+                System.out.println("Invalid selection.");
+        }
     }
     public void editContacts(){
 
+        System.out.print("1. Mobile No. ");
+        System.out.print("2. Email Address ");
+        System.out.print("3. Tel No ");
+        System.out.print("Select what to update: ");
+
+        int address = scanner.nextInt();
+        scanner.nextLine();
+        switch (address) {
+            case 1:
+                System.out.print("Enter new barangay: ");
+                String brgy = scanner.nextLine();
+                customer.getAddress().setBrgy(brgy);
+                break;
+
+            case 2:
+                System.out.print("Enter new municipality: ");
+                String municipality = scanner.nextLine();
+                customer.getAddress().setMunicipality(municipality);
+                break;
+
+            case 3:
+                System.out.print("Enter new province: ");
+                String province = scanner.nextLine();
+                customer.getAddress().setProvince(province);
+                break;
+
+            default:
+                System.out.println("Invalid selection.");
+        }
     }
 }

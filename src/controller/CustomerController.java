@@ -33,6 +33,7 @@ public class CustomerController {
         }
     }
 
+    //retrieve single customer object
     public Customer findById(long Id){
         try{
             return customerRepository.findCustomerById(Id);
@@ -42,6 +43,7 @@ public class CustomerController {
            return null;
         }
     }
+    //Batch search
     public List<Customer> findByName(String name){
 
         try{
@@ -65,5 +67,15 @@ public class CustomerController {
             npe.printStackTrace();
             return false;
         }
+    }
+
+    public long updateDetails(Customer customer){
+
+        try {
+            return customerRepository.updateCustomer(customer);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 }

@@ -214,4 +214,60 @@
             }
             return true;
         }
+
+        public long updateCustomer(Customer customer) throws SQLException{
+
+        String customerQuery = " UPDATE customers " +
+                "SET first_name = ?, middle_name = ?, last_name = ?, birth_date = ?, sex = ? " +
+                "WHERE customer_id = ?;";
+                       
+        String addressQuery = "UPDATE address " +
+                "SET brgy = ?, municipality = ?, province = ?, postal = ?,  country = ?  " +
+                "WHERE customer_id = ?;";
+                        
+        String contactsQuery = "UPDATE contacts " +
+                "SET mobile_number = ?, email_address = ?, telephone_number = ? " +
+                "WHERE customer_id = ?;";
+
+            try (Connection connection = connectDB.connect();
+                 PreparedStatement statement1 = connection.prepareStatement(customerQuery);
+                 PreparedStatement statement2 = connection.prepareStatement(addressQuery);
+                 PreparedStatement statement3 = connection.prepareStatement(contactsQuery)
+            ){
+                try {
+                    connection.setAutoCommit(false);
+
+                    statement1.setString(1, customer.getFirstName());
+                    statement1.setString(2, customer.getMiddleName());
+                    statement1.setString(3, customer.getLastName());
+                    statement1.setDate(4, Date.valueOf(customer.getBirthDate()));
+                    statement1.setString(5, String.valueOf(customer.getSex()));
+                    statement1.setLong(6, customer.getCustomerID());
+
+                    statement1.executeUpdate();
+
+                    statement2.setString(1, customer.getAddress().getBrgy());
+                    statement2.setString(2, customer.getAddress().getMunicipality());
+                    statement2.setString(3, customer.getAddress().getProvince());
+                    statement2.setString(4, customer.getAddress().getCountry());
+                    statement2.setString(5, customer.getAddress().getPostal());
+                    statement2.setLong(6, customer.getCustomerID());
+
+                    statement2.executeUpdate();
+
+                    statement3.setString(1, customer.getContact().getPhoneNumber());
+                    statement3.setString(2, customer.getContact().getEmailAddress());
+                    statement3.setString(3, customer.getContact().getTelephoneNumber());
+                    statement3.setLong(4, customer.getCustomerID());
+
+                    statement3.executeUpdate();
+                    connection.commit();
+
+                } catch (SQLException e){
+                    connection.rollback();
+                    throw e;
+                }
+            }
+            return customer.getCustomerID();
+        }
     }
