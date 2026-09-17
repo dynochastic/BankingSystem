@@ -69,13 +69,12 @@ public class CustomerController {
         }
     }
 
-    public long updateDetails(Customer customer){
+    public void updateDetails(Customer customer){
 
         try {
-            return customerRepository.updateCustomer(customer);
+            if (validation.isValidCustomer(customer)) customerRepository.updateCustomer(customer);
         }catch (SQLException e){
             e.printStackTrace();
         }
-
     }
 }

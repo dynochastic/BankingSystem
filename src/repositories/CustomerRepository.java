@@ -162,9 +162,9 @@
                                 result.getString("brgy"),
                                 result.getString("municipality"),
                                 result.getString("province"),
-                                result.getString("postal_code"),
-                                result.getString("country")
-                        );
+                                result.getString("country"),
+                                result.getString("postal_code")
+                                );
                         ContactDetails contacts = new ContactDetails(
                                 result.getString("mobile_number"),
                                 result.getString("email_address"),
@@ -215,16 +215,16 @@
             return true;
         }
 
-        public long updateCustomer(Customer customer) throws SQLException{
+        public void updateCustomer(Customer customer) throws SQLException{
 
         String customerQuery = " UPDATE customers " +
                 "SET first_name = ?, middle_name = ?, last_name = ?, birth_date = ?, sex = ? " +
                 "WHERE customer_id = ?;";
-                       
+
         String addressQuery = "UPDATE address " +
-                "SET brgy = ?, municipality = ?, province = ?, postal = ?,  country = ?  " +
+                "SET brgy = ?, municipality = ?, province = ?, country = ?, postal_code = ?  " +
                 "WHERE customer_id = ?;";
-                        
+
         String contactsQuery = "UPDATE contacts " +
                 "SET mobile_number = ?, email_address = ?, telephone_number = ? " +
                 "WHERE customer_id = ?;";
@@ -265,9 +265,8 @@
 
                 } catch (SQLException e){
                     connection.rollback();
-                    throw e;
+                    e.printStackTrace();
                 }
             }
-            return customer.getCustomerID();
         }
     }
