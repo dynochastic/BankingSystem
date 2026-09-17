@@ -7,15 +7,15 @@ public class CustomerService{
 
     private final Scanner scanner;
 
-    private CreateCustomer createCustomer;
-    private EditCustomer editCustomer;
-    private SearchCustomer searchCustomer;
-    private DeleteCustomer deleteCustomer;
+    private final CreateCustomer createCustomer;
+    private final EditCustomers editCustomer;
+    private final SearchCustomer searchCustomer;
+    private final DeleteCustomer deleteCustomer;
 
     public CustomerService(Scanner scanner){
         this.scanner = scanner;
         this.createCustomer = new CreateCustomer(scanner);
-        this.editCustomer = new EditCustomer(scanner);
+        this.editCustomer = new EditCustomers(scanner);
         this.searchCustomer = new SearchCustomer(scanner);
         this.deleteCustomer = new DeleteCustomer(scanner);
     }

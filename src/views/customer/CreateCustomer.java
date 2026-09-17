@@ -15,8 +15,8 @@ public class CreateCustomer {
     private Customer customer;
     private CustomerAddress address;
     private ContactDetails contacts;
-    private CustomerController controller;
-    private Scanner scanner;
+    private final CustomerController controller;
+    private final Scanner scanner;
 
     CreateCustomer(Scanner scanner){
         this.scanner = scanner;
