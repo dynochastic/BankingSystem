@@ -69,12 +69,16 @@ public class CustomerController {
         }
     }
 
-    public void updateDetails(Customer customer){
+    public boolean updateDetails(Customer customer){
 
         try {
-            if (validation.isValidCustomer(customer)) customerRepository.updateCustomer(customer);
+            if (validation.isValidCustomer(customer)){
+                customerRepository.updateCustomer(customer);
+                return true;
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
+        return false;
     }
 }

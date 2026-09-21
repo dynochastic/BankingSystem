@@ -244,8 +244,6 @@
                     statement1.setString(5, String.valueOf(customer.getSex()));
                     statement1.setLong(6, customer.getCustomerID());
 
-                    statement1.executeUpdate();
-
                     statement2.setString(1, customer.getAddress().getBrgy());
                     statement2.setString(2, customer.getAddress().getMunicipality());
                     statement2.setString(3, customer.getAddress().getProvince());
@@ -253,19 +251,23 @@
                     statement2.setString(5, customer.getAddress().getPostal());
                     statement2.setLong(6, customer.getCustomerID());
 
-                    statement2.executeUpdate();
-
                     statement3.setString(1, customer.getContact().getPhoneNumber());
                     statement3.setString(2, customer.getContact().getEmailAddress());
                     statement3.setString(3, customer.getContact().getTelephoneNumber());
                     statement3.setLong(4, customer.getCustomerID());
 
-                    statement3.executeUpdate();
+                    int customerRows = statement1.executeUpdate();
+                    int addressRows = statement2.executeUpdate();
+                    int contactRows = statement3.executeUpdate();
+
+                    System.out.println(STR."Customer rows: \{customerRows}");
+                    System.out.println(STR."Address rows: \{addressRows}");
+                    System.out.println(STR."Contact rows: \{contactRows}");
                     connection.commit();
 
                 } catch (SQLException e){
                     connection.rollback();
-                    e.printStackTrace();
+                    throw e;
                 }
             }
         }
