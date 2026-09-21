@@ -30,7 +30,7 @@ CREATE TABLE contacts(
 	customer_id BIGINT,
 	mobile_number VARCHAR(15) NOT NULL,
 	email_address VARCHAR(100),
-	telephone_number VARCHAR(30) DEFAULT "N/A",
+	telephone_number VARCHAR(30) DEFAULT 'N/A',
 
 	FOREIGN KEY(customer_id)
 		REFERENCES customers(customer_id)
