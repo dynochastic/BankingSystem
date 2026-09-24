@@ -17,7 +17,12 @@ public class Accounts {
         System.out.print("3. Check Account Balance");
         System.out.print("4. Edit an Account");
 
-
         System.out.print("What would you like to do?  ");
+
+        int accountOption = scanner.nextInt();
+
+        switch (accountOption){
+
+        }
     }
 }

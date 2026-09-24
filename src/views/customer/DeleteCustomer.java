@@ -106,7 +106,7 @@
 
                     if(!isSuccessful) {
                         System.out.print("Failed to remove customer " + customer.getCustomerID());
-                        return;
+                         return;
                     }
                     System.out.println("Customer " + customer.getCustomerID() + " was removed successfully");
 
