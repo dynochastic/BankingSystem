@@ -1,4 +1,5 @@
 package views.account;
 
-public class AccountDisplayDetails {
+public class AccountDisplayDetails  {
+
 }
