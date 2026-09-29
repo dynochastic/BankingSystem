@@ -1,14 +1,33 @@
 package controller;
 
+import repositories.AccountRepository;
+
+import java.sql.SQLException;
+
 public class AccountController {
 
-    public AccountController controller;
-
+    private AccountRepository repository;
     public AccountController(){
-        this.controller = new AccountController();
+        this.repository = new AccountRepository();
     }
 
-    public void addBalance(int balance){
+    public void checkInitialDeposit(double balance){
+        try {
+            repository.openCheckAccount(balance);
 
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
+
+    public void savingsInitialDeposit(double balance){
+        try {
+            repository.openSavingsAccount(balance);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
