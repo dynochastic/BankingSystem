@@ -4,16 +4,19 @@ import java.time.LocalDate;
 public class BankAccount {
     private final String AccountNo;
     private double Balance;
+    private String AccountType;
     private final LocalDate dateOpened;
     private Customer Customer;
 
-    BankAccount(String AccountNo, double initialBalance, Customer Customer) {
+    BankAccount(String AccountNo, double initialBalance, Customer Customer, String accountType) {
         this.AccountNo = AccountNo;
         this.Balance = initialBalance;
+        this.AccountType = accountType;
         this.dateOpened = LocalDate.now();
         this.Customer = Customer;
     }
 
+    public String getAccountType(){return AccountType;}
     public String getAccountNo() {
         return AccountNo;
     }
@@ -28,6 +31,10 @@ public class BankAccount {
 
     public Double getBalance() {
         return Balance;
+    }
+
+    public void setAccountType(String accountType){
+        this.AccountType = accountType;
     }
     public void setCustomer(Customer customer) {
         this.Customer = customer;

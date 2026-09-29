@@ -28,7 +28,6 @@
 
             connection.setAutoCommit(false);
 
-
             try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                  PreparedStatement addressStatement = connection.prepareStatement(query2);
                  PreparedStatement contactStatement = connection.prepareStatement(query3)) {

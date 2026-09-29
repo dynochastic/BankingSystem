@@ -1,6 +1,7 @@
 package views.account;
 
 import controller.CustomerController;
+import models.Customer;
 
 import java.util.Scanner;
 
@@ -17,7 +18,6 @@ public class OpenAccount {
         this.savingsAccount = new SavingsAccount(scanner);
         this.checkAccount = new CheckAccount(scanner);
         this.controller = new CustomerController();
-
     }
 
     public void openAccount(){
@@ -25,7 +25,7 @@ public class OpenAccount {
         System.out.print("Please Enter the user ID you would like to open an ");
 
         int id = scanner.nextInt();
-        controller.findById(id);
+        Customer customer = controller.findById(id);
 
         System.out.print("1. Savings Account");
         System.out.print("2. Check Account");
@@ -36,8 +36,8 @@ public class OpenAccount {
         scanner.nextLine();
 
         switch (accountOption){
-            case 1 -> savingsAccount.openSavings(id); // id goes to the opensavings class delegates the opening account
-            case 2 -> checkAccount.openCheckAccount(id);
+            case 1 -> savingsAccount.openSavings(customer); // customer goes to the open savings class delegates the opening account
+            case 2 -> checkAccount.openCheckAccount(customer); // customer goes to the checking view delegates the opening account
         }
     }
 
