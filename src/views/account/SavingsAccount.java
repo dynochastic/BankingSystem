@@ -1,6 +1,7 @@
 package views.account;
 
 import controller.AccountController;
+import models.BankAccount;
 import models.Customer;
 
 import java.util.Scanner;
@@ -19,10 +20,14 @@ public class SavingsAccount {
         System.out.print("Please enter an initial deposit (minimum: 3000): ");
         double initialDeposit = scanner.nextDouble();
 
-        if (initialDeposit >= 0){
-            controller.checkInitialDeposit(initialDeposit);
-
+        if (initialDeposit <= 0){
+            System.out.println("Invalid Amount");
+            return;
         }
+        BankAccount bankAccount = new BankAccount(Customer); // to be fixed
+
+        controller.savingsInitialDeposit(initialDeposit);
+
 
     }
 }

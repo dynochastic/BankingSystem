@@ -2,13 +2,13 @@ package models;
 import java.time.LocalDate;
 
 public class BankAccount {
-    private final String AccountNo;
+    private final long AccountNo;
     private double Balance;
     private String AccountType;
     private final LocalDate dateOpened;
     private Customer Customer;
 
-    BankAccount(String AccountNo, double initialBalance, Customer Customer, String accountType) {
+    BankAccount(int AccountNo, double initialBalance, Customer Customer, String accountType) {
         this.AccountNo = AccountNo;
         this.Balance = initialBalance;
         this.AccountType = accountType;
@@ -17,7 +17,7 @@ public class BankAccount {
     }
 
     public String getAccountType(){return AccountType;}
-    public String getAccountNo() {
+    public long getAccountNo() {
         return AccountNo;
     }
 

@@ -20,14 +20,15 @@ public class AccountRepository {
 
     public void openSavingsAccount(double initialAmount) throws SQLException {
 
-        String query1 = "INSERT INTO bank_accounts values (?,?,?,?) WHERE customer_id = ?";
+        String query1 = "INSERT INTO bank_accounts (customer_id, account_type, balance)values (?,?,?) WHERE customer_id = ?";
         try(Connection connection = connectDB.connect();
             PreparedStatement preparedStatement = connection.prepareStatement(query1);
         ){
             connection.setAutoCommit(false);
 
             preparedStatement.setLong(1, bankAccount.getCustomer().getCustomerID());
-            preparedStatement.setString(2,
+            preparedStatement.setString(2, bankAccount.getAccountType());
+            preparedStatement.setDouble(2, bankAccount.getBalance());
 
 
             preparedStatement.executeUpdate();
