@@ -19,7 +19,7 @@ public class CheckAccount {
         System.out.print("Please enter an initial deposit (minimum: 3000): ");
         int initialDeposit = scanner.nextInt();
 
-        controller.checkInitialDeposit(initialDeposit);
+        controller.openChecking(initialDeposit);
 
     }
 }

@@ -3,8 +3,8 @@ package views.account;
 import controller.AccountController;
 import models.BankAccount;
 import models.Customer;
-
 import java.util.Scanner;
+import models.AccountType;
 
 public class SavingsAccount {
 
@@ -24,10 +24,8 @@ public class SavingsAccount {
             System.out.println("Invalid Amount");
             return;
         }
-        BankAccount bankAccount = new BankAccount(Customer); // to be fixed
 
-        controller.savingsInitialDeposit(initialDeposit);
-
-
+        BankAccount bankAccount = new BankAccount(initialDeposit, AccountType.SAVINGS, customer);
+        controller.openSavings(bankAccount);
     }
 }

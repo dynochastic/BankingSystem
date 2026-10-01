@@ -1,11 +1,21 @@
 package models;
 
+
+import java.util.Date;
+
 public class Savings extends BankAccount{
 
     private double interestRate;
 
-    Savings(String AccountNo, double initialBalance, Customer customer) {
-        super(AccountNo, initialBalance, customer);
+    public Savings(int AccountNo, double initialBalance, AccountType accountType , Customer customer) {
+        super(AccountNo, initialBalance, accountType,  customer);
     }
+
+    //Account Creation
+    public Savings(double initialBalance,AccountType accountType , Customer customer , double interestRate ) {
+        super(initialBalance, accountType,  customer);
+        this.interestRate = 0.0625;
+    }
+
 }
 

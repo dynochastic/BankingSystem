@@ -18,7 +18,7 @@ public class AccountRepository {
     }
 
 
-    public void openSavingsAccount(double initialAmount) throws SQLException {
+    public void openSavingsAccount(BankAccount bankAccount) throws SQLException {
 
         String query1 = "INSERT INTO bank_accounts (customer_id, account_type, balance)values (?,?,?) WHERE customer_id = ?";
         try(Connection connection = connectDB.connect();
