@@ -5,6 +5,7 @@ import models.BankAccount;
 import models.Customer;
 import java.util.Scanner;
 import models.AccountType;
+import models.Savings;
 
 public class SavingsAccount {
 
@@ -25,7 +26,7 @@ public class SavingsAccount {
             return;
         }
 
-        BankAccount bankAccount = new BankAccount(initialDeposit, AccountType.SAVINGS, customer);
+        BankAccount bankAccount = new Savings(initialDeposit, AccountType.SAVINGS, customer, 0.0625);
         controller.openSavings(bankAccount);
     }
 }
