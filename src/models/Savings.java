@@ -7,14 +7,14 @@ public class Savings extends BankAccount{
 
     private double interestRate;
 
-    public Savings(int AccountNo, double initialBalance, AccountType accountType , Customer customer) {
-        super(AccountNo, initialBalance, accountType,  customer);
+    public Savings(int AccountNo, double balance, AccountType accountType , Customer customer) {
+        super(AccountNo, balance, accountType,  customer);
     }
 
     //Account Creation
-    public Savings(double initialBalance,AccountType accountType , Customer customer , double interestRate ) {
-        super(initialBalance, accountType,  customer);
-        this.interestRate = 0.0625;
+    public Savings(double balance,AccountType accountType , Customer customer , double interestRate ) {
+        super(balance, accountType,  customer);
+        this.interestRate = interestRate;
     }
 
 }

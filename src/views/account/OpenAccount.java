@@ -9,14 +9,14 @@ public class OpenAccount {
 
     private final Scanner scanner;
     private SavingsAccount savingsAccount;
-    private CheckAccount checkAccount;
+    private CheckAccountView checkAccount;
     private CustomerController controller;
 
     public OpenAccount(Scanner scanner){
 
         this.scanner = scanner;
         this.savingsAccount = new SavingsAccount(scanner);
-        this.checkAccount = new CheckAccount(scanner);
+        this.checkAccount = new CheckAccountView(scanner);
         this.controller = new CustomerController();
     }
 
