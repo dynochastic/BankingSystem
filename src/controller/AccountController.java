@@ -1,5 +1,6 @@
 package controller;
 
+import models.BankAccount;
 import repositories.AccountRepository;
 
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ public class AccountController {
         this.repository = new AccountRepository();
     }
 
-    public void checkInitialDeposit(double balance){
+    public void openChecking(double balance){
         try {
             repository.openCheckAccount(balance);
 
@@ -20,9 +21,9 @@ public class AccountController {
         }
     }
 
-    public void savingsInitialDeposit(double balance){
+    public void openSavings(BankAccount bankAccount){
         try {
-            repository.openSavingsAccount(balance);
+            repository.openSavingsAccount(bankAccount);
 
         }catch (SQLException e){
             e.printStackTrace();
