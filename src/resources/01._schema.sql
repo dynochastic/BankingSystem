@@ -37,39 +37,33 @@ CREATE TABLE contacts(
                      ON DELETE CASCADE ;
 );
 
-
 CREATE TABLE bank_accounts(
   account_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  customer_id BIGINT,
+  customer_id BIGINT NOT NULL,
+
   account_no INT GENERATED ALWAYS AS IDENTITY
       (START WITH 100000)
       UNIQUE NOT NULL,
-  account_type VARCHAR(50) NOT NULL,
+
+  product_id INT NOT NULL,
+
   balance DECIMAL(19,2) NOT NULL DEFAULT 0.00,
   opened_date DATE NOT NULL DEFAULT CURRENT_DATE,
 
   FOREIGN KEY(customer_id)
       REFERENCES customers(customer_id)
-      ON DELETE CASCADE
+      ON DELETE CASCADE,
+
+  FOREIGN KEY(product_id)
+      REFERENCES account_products(product_id)
 );
+create table account_products(
+     product_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY
+         (START WITH 100) UNIQUE NOT NULL,
+     product_name varchar(50),
+     account_type varchar(50) NOT NULL
+         CHECK (account_type IN ('savings','checking')),
 
-
-CREATE TABLE savings_account(
-    account_id INT PRIMARY KEY
-        REFERENCES bank_accounts(account_id)
-            ON DELETE CASCADE,
-
-    interest_rate DECIMAL(5,4) NOT NULL,
-    daily_withdrawal_limit INT DEFAULT 6
-);
-
-
-CREATE TABLE checking_account(
-     account_id INT PRIMARY KEY
-         REFERENCES bank_accounts(account_id)
-             ON DELETE CASCADE,
-
-     overdraft_limit DECIMAL(15,2) DEFAULT 0.00,
-     overdraft_interest_rate DECIMAL(5,4) DEFAULT 0.00,
-     bounced_check_fee DECIMAL(15,2) DEFAULT 2000.00
+     interest_rate DECIMAL (8,6),
+     minimum_balance DECIMAL (19,2) NOT NULL CHECK(minimum_balance > 0)
 );
