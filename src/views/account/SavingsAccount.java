@@ -26,7 +26,7 @@ public class SavingsAccount {
             return;
         }
 
-        BankAccount bankAccount = new Savings(initialDeposit, AccountType.SAVINGS, customer, 0.0625);
+        BankAccount bankAccount = new Savings(initialDeposit, AccountType.SAVINGS, customer);
         controller.openSavings(bankAccount);
     }
 }

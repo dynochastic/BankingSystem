@@ -1,7 +1,7 @@
 package models;
 import java.time.LocalDate;
 
-public class BankAccount {
+public abstract class BankAccount {
     private int AccountNo;
     private double Balance;
     private AccountType AccountType;
@@ -51,19 +51,3 @@ public class BankAccount {
         this.Customer = customer;
     }
 }
-
-    /*
-    public void withdraw(double amount) {
-        if (amount > 0 && amount <= Balance) {
-            Balance -= amount;
-        } else {
-            System.out.println("Invalid or insufficient funds for withdrawal.");
-        }
-    }
-
-    public void deposit(double amount) {
-        if (amount > 0) {
-            Balance += amount;
-        }
-    }
-*/

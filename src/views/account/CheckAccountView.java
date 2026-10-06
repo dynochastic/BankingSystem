@@ -17,7 +17,7 @@ public class CheckAccountView {
         this.controller = new AccountController();
     }
 
-    public void openCheckAccount(Customer customer  ){
+    public void openCheckAccount(Customer customer ){
 
         System.out.print("Please enter an initial deposit (minimum: 3000): ");
         double initialDeposit = scanner.nextDouble();
@@ -26,10 +26,7 @@ public class CheckAccountView {
             System.out.println("Invalid Amount");
             return;
         }
-        /**
-        BankAccount bankAccount = new CheckAccount(initialDeposit, AccountType.SAVINGS, customer);
-        controller.openSavings(bankAccount);
-        **/
+
 
     }
 }

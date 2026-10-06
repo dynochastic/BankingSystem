@@ -12,9 +12,8 @@ public class Savings extends BankAccount{
     }
 
     //Account Creation
-    public Savings(double balance,AccountType accountType , Customer customer , double interestRate ) {
+    public Savings(double balance,AccountType accountType , Customer customer) {
         super(balance, accountType,  customer);
-        this.interestRate = interestRate;
     }
 
 }
