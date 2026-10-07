@@ -11,5 +11,6 @@ public class CloseAccount {
     }
 
     public void closeAccount(){
+        //Close account block
      }
 }
