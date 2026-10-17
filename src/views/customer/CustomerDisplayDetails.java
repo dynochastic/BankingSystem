@@ -8,6 +8,10 @@ public class CustomerDisplayDetails {
 
     public static void displayDetails(Customer customer) {
 
+        if (customer == null){
+            System.out.println("\u001B[31mCustomer User Does Not Exist.\u001B[0m");
+            return;
+        }
         System.out.println("\n========================================");
         System.out.println("          CUSTOMER INFORMATION          ");
         System.out.println("========================================");

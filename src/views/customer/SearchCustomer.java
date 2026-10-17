@@ -41,6 +41,8 @@ public class SearchCustomer {
 
         customer = controller.findById(Id);
 
+
+
         CustomerDisplayDetails.displayDetails(customer);
     }
 

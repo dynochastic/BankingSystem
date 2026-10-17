@@ -1,6 +1,7 @@
 package controller;
 
 import models.BankAccount;
+import models.Savings;
 import repositories.AccountRepository;
 
 import java.sql.SQLException;
@@ -15,19 +16,21 @@ public class AccountController {
     public void openChecking(double balance){
         try {
             repository.openCheckAccount(balance);
-
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
 
-    public void openSavings(BankAccount bankAccount){
-        try {
-            repository.openSavingsAccount(bankAccount);
+    public boolean openRegularSavings(Savings savings){
 
-        }catch (SQLException e){
+        try {
+            int product_ID = repository.findProductbyID("regular savings");
+            repository.openSavingsAccount(savings, product_ID);
+        }catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
 
