@@ -1,5 +1,6 @@
 package views;
 
+import views.account.Accounts;
 import views.customer.CustomerService;
 
 import java.util.InputMismatchException;
@@ -7,10 +8,11 @@ import java.util.Scanner;
 public class Menu {
     private final Scanner scanner;
     private final CustomerService custAction;
+    private final Accounts accountAction;
     public Menu(Scanner scanner){
         this.scanner = scanner;
         custAction = new CustomerService(scanner);
-
+        accountAction = new Accounts(scanner);
 
     }
     public void startBank() {
@@ -39,9 +41,8 @@ public class Menu {
                 switch (option) {
                     case 1 -> {
                         custAction.customerMenu();
-                        break;
                     }
-                    case 2 -> custAction.customerMenu();
+                    case 2 ->accountAction.accountAction();
                     case 3 -> custAction.customerMenu();
                     case 4 -> custAction.customerMenu();
                     default -> System.out.println("\u001B[31mOption Invalid.\u001B[0m");
