@@ -24,7 +24,6 @@ CREATE TABLE address(
 
 );
 
-
 CREATE TABLE contacts(
 	contact_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	customer_id BIGINT,
@@ -43,10 +42,9 @@ CREATE TABLE bank_accounts(
 
   account_no INT GENERATED ALWAYS AS IDENTITY
       (START WITH 100000)
-      UNIQUE NOT NULL,
+      UNIQUE NOT NULL,  -- business transaction
 
   product_id INT NOT NULL,
-
   balance DECIMAL(19,2) NOT NULL DEFAULT 0.00,
   opened_date DATE NOT NULL DEFAULT CURRENT_DATE,
 
@@ -57,6 +55,7 @@ CREATE TABLE bank_accounts(
   FOREIGN KEY(product_id)
       REFERENCES account_products(product_id)
 );
+
 create table account_products(
      product_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY
          (START WITH 100) UNIQUE NOT NULL,
