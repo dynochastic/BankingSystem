@@ -4,6 +4,7 @@ import controller.CustomerController;
 import models.Customer;
 
 import java.util.Scanner;
+import views.customer.CustomerDisplayDetails;
 
 public class OpenAccount {
 
@@ -21,14 +22,28 @@ public class OpenAccount {
     }
 
     public void openAccount(){
+        Customer customer = null;
 
-        System.out.print("Please Enter the user ID you would like to open an ");
+        do {
+            System.out.print("Please Enter the user ID you would like to open an Account:  ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            customer = controller.findById(id);
 
-        int id = scanner.nextInt();
-        Customer customer = controller.findById(id);
+            views.customer.CustomerDisplayDetails.displayDetails(customer);
 
-        System.out.print("1. Savings Account");
-        System.out.print("2. Check Account");
+        }
+        while (customer == null);
+
+        System.out.print("Confirm details? (Y/N): ");
+        char yn = scanner.nextLine().toLowerCase().charAt(0);
+
+        if(yn == 'n'){
+            return;
+        }
+
+        System.out.println("1. Savings Account");
+        System.out.println("2. Check Account");
 
         System.out.print("What account would you like to open?  ");
 

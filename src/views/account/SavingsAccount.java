@@ -17,16 +17,26 @@ public class SavingsAccount {
     }
 
     public void openSavings(Customer customer){
-
         System.out.print("Please enter an initial deposit (minimum: 3000): ");
         double initialDeposit = scanner.nextDouble();
 
         if (initialDeposit <= 0){
-            System.out.println("Invalid Amount");
+            System.out.println("Invalid Amount. Make sure its under 3000");
             return;
         }
 
-        BankAccount bankAccount = new Savings(initialDeposit, AccountType.SAVINGS, customer);
-        controller.openSavings(bankAccount);
+        Savings savingsAccount = new Savings(initialDeposit, customer);
+        boolean isSuccess = controller.openRegularSavings(savingsAccount);
+
+        if (isSuccess){
+            System.out.println("");
+            System.out.println("\u001B[32mAccount Successfully Created.\u001B[0m");
+
+        }
+        else{
+            System.out.println("\u001B[31mAccount Opening Failed. Please Try Again.\u001B[31m");
+
+        }
     }
+
 }

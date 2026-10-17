@@ -22,9 +22,9 @@ public class Accounts {
 
     public void accountAction(){
 
-        System.out.print("1. Open an Account");
-        System.out.print("2. Close an Account");
-        System.out.print("3. Edit an Account");
+        System.out.println("1. Open an Account");
+        System.out.println("2. Close an Account");
+        System.out.println("3. Edit an Account");
 
         System.out.print("What would you like to do?  ");
 
