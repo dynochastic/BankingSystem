@@ -36,4 +36,12 @@ public class AccountController {
         }
         return true;
     }
+
+    public long findAccountById(long id){
+        try{
+            repository.findByAccountId(id);
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+    }
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 public abstract class BankAccount {
     private int AccountNo;
     private double Balance;
-    private final LocalDate dateOpened;
+    private LocalDate dateOpened;
     private Customer Customer;
 
     public BankAccount(int AccountNo, double initialBalance, Customer customer) {
@@ -12,6 +12,12 @@ public abstract class BankAccount {
         this.Balance = initialBalance;
         this.dateOpened = LocalDate.now();
         this.Customer = customer;
+    }
+
+    //Account Search
+    public BankAccount(int AccountNo, double initialBalance) {
+        this.AccountNo = AccountNo;
+        this.Balance = initialBalance;
     }
 
     //For Account Opening

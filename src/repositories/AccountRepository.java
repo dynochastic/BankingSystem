@@ -2,6 +2,8 @@ package repositories;
 
 import config.DatabaseConnection;
 
+import models.AccountType;
+import models.BankAccount;
 import models.CheckAccount;
 import models.Savings;
 
@@ -79,5 +81,38 @@ public class AccountRepository {
                 return false;
             }
         }
+    }
+
+    public BankAccount findByAccountId(long id) throws SQLException{
+
+        BankAccount account = null;
+
+        //to fix: logical OR confirm whether working inside string. ALso pass th vaue such as customer id, birthdate sex
+        String query = "SELECT c.first_name || ' ' || middle_name || ' ' || last_name as customer_name, " +
+        " ba.account_no, ba.balance, ap.account_type, " +
+                " FROM bank_accounts LEFT JOIN account_products ap ON ba.product_id = ap.product_id WHERE ba.account_no = ?";
+
+        try(Connection connection = connectDB.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(query)){
+
+            preparedStatement.setLong(1, id);
+
+            try(ResultSet rs = preparedStatement.executeQuery()){
+                if (rs.next()){
+                    String account_type = rs.getString("account_type");
+                    int account_no = rs.getInt("account_no");
+                    double balance = rs.getDouble("balance");
+
+                    if ("savings".equalsIgnoreCase(account_type)){
+                        account = new Savings(account_no, balance);
+                    }
+                    else if ("checking".equalsIgnoreCase(account_type))
+                    {
+                        account = new CheckAccount(account_no, balance);
+                    }
+                }
+            }
+        }
+        return account;
     }
 }
