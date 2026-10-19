@@ -2,10 +2,7 @@ package views.account;
 
 import java.util.Scanner;
 import controller.AccountController;
-import models.AccountType;
-import models.BankAccount;
-import models.CheckAccount;
-import models.Customer;
+import models.*;
 
 public class CheckAccountView {
 
@@ -17,16 +14,27 @@ public class CheckAccountView {
         this.controller = new AccountController();
     }
 
-    public void openCheckAccount(Customer customer ){
+    public void openCheckAccount(Customer customer){
 
-        System.out.print("Please enter an initial deposit (minimum: 3000): ");
+        System.out.print("Please enter an initial deposit (minimum: 10000): ");
         double initialDeposit = scanner.nextDouble();
+        scanner.nextLine();
 
-        if (initialDeposit <= 0){
-            System.out.println("Invalid Amount");
+        if (initialDeposit < 10000) {
+            System.out.println("Invalid Amount. Must be at least: 10000");
             return;
         }
 
+        CheckAccount checkAccount = new CheckAccount(initialDeposit, customer);
+        boolean isSuccess = controller.openChecking(checkAccount);
 
+        if (isSuccess){
+            System.out.println("\u001B[32mCheck Account Successfully Created.\u001B[0m");
+
+        }
+        else{
+            System.out.println("\u001B[31mAccount Opening Failed. Please Try Again.\u001B[31m");
+
+        }
     }
 }

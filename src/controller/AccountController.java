@@ -1,6 +1,7 @@
 package controller;
 
 import models.BankAccount;
+import models.CheckAccount;
 import models.Savings;
 import repositories.AccountRepository;
 
@@ -13,12 +14,15 @@ public class AccountController {
         this.repository = new AccountRepository();
     }
 
-    public void openChecking(double balance){
+    public boolean openChecking(CheckAccount checkAccount){
         try {
-            repository.openCheckAccount(balance);
+            int product_ID = repository.findProductbyID("regular checking");
+            repository.openCheckAccount(checkAccount, product_ID);
         }catch (SQLException e){
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     public boolean openRegularSavings(Savings savings){
@@ -32,6 +36,4 @@ public class AccountController {
         }
         return true;
     }
-
-
 }

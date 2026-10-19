@@ -19,8 +19,8 @@ public class SavingsAccount {
     public void openSavings(Customer customer){
         System.out.print("Please enter an initial deposit (minimum: 3000): ");
         double initialDeposit = scanner.nextDouble();
-
-        if (initialDeposit <= 0){
+        scanner.nextLine();
+        if (initialDeposit < 3000){
             System.out.println("Invalid Amount. Make sure its under 3000");
             return;
         }
@@ -29,7 +29,6 @@ public class SavingsAccount {
         boolean isSuccess = controller.openRegularSavings(savingsAccount);
 
         if (isSuccess){
-            System.out.println("");
             System.out.println("\u001B[32mAccount Successfully Created.\u001B[0m");
 
         }

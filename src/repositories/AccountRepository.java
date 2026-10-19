@@ -2,6 +2,7 @@ package repositories;
 
 import config.DatabaseConnection;
 
+import models.CheckAccount;
 import models.Savings;
 
 import java.sql.*;
@@ -39,7 +40,7 @@ public class AccountRepository {
 
             try{
                 preparedStatement.setLong(1, savings.getCustomer().getCustomerID());
-                preparedStatement.setLong(2, productId);
+                preparedStatement.setInt(2, productId);
                 preparedStatement.setDouble(3, savings.getBalance());
 
                 preparedStatement.executeUpdate();
@@ -56,12 +57,27 @@ public class AccountRepository {
     }
 
 
-    public void openCheckAccount(double initialAmount) throws SQLException {
+    public boolean openCheckAccount(CheckAccount checkAccount, int productId) throws SQLException {
 
-        String query1 = "INSERT INTO values (?,?,?,?) WHERE customer_id = ?";
-        try(Connection connection = connectDB.connect()){
+        String query = "INSERT INTO bank_accounts (customer_id, product_id, balance) VALUES  (?,?,?);";
+        try(Connection connection = connectDB.connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);)
+        {
+            connection.setAutoCommit(false);
+            try {
+                preparedStatement.setLong(1, checkAccount.getCustomer().getCustomerID());
+                preparedStatement.setInt(2, productId);
+                preparedStatement.setDouble(3, checkAccount.getBalance());
 
+                preparedStatement.executeUpdate();
+
+                connection.commit();
+                return true;
+            }catch ( SQLException rollbackException){
+                rollbackException.printStackTrace();
+                connection.rollback();
+                return false;
+            }
         }
     }
-
 }
