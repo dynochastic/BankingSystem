@@ -13,8 +13,7 @@ public class CustomerController {
 
     private CustomerValidator validation;
     private CustomerRepository customerRepository;
-    public
-    CustomerController(){
+    public CustomerController(){
         this.validation = new CustomerValidator();
         this.customerRepository = new CustomerRepository();
     }

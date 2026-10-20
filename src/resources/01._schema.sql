@@ -47,6 +47,7 @@ CREATE TABLE bank_accounts(
   product_id INT NOT NULL,
   balance DECIMAL(19,2) NOT NULL DEFAULT 0.00,
   opened_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE';
 
   FOREIGN KEY(customer_id)
       REFERENCES customers(customer_id)

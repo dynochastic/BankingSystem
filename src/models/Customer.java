@@ -35,6 +35,19 @@ public class Customer{
         this.contact = contact;
     }
 
+    //Loading Customer without address and contact
+    public Customer(long customerNo, String FirstName, String MiddleName, String LastName, LocalDate BirthDate,
+                    char sex){
+        this.customerID = customerNo;
+        this.FirstName = FirstName;
+        this.MiddleName = MiddleName;
+        this.LastName = LastName;
+        this.sex = sex;
+        this.BirthDate = BirthDate;
+    }
+
+
+
     public void setFirstName (String FirstName){
         this.FirstName = FirstName;
     }
