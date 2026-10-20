@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class AccountController {
 
-    private AccountRepository repository;
+    private final AccountRepository repository;
     public AccountController(){
         this.repository = new AccountRepository();
     }
@@ -37,11 +37,12 @@ public class AccountController {
         return true;
     }
 
-    public long findAccountById(long id){
+    public BankAccount findAccountById(long id){
         try{
-            repository.findByAccountId(id);
+            return repository.findByAccountId(id);
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
+            return null;
         }
     }
 }

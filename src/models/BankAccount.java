@@ -5,19 +5,15 @@ public abstract class BankAccount {
     private int AccountNo;
     private double Balance;
     private LocalDate dateOpened;
+    private String AccountType;
     private Customer Customer;
 
-    public BankAccount(int AccountNo, double initialBalance, Customer customer) {
-        this.AccountNo = AccountNo;
-        this.Balance = initialBalance;
-        this.dateOpened = LocalDate.now();
-        this.Customer = customer;
-    }
 
-    //Account Search
-    public BankAccount(int AccountNo, double initialBalance) {
-        this.AccountNo = AccountNo;
+    public BankAccount(int accountNo, double initialBalance, String accountType, Customer customer) {
+        this.AccountNo = accountNo;
         this.Balance = initialBalance;
+        this.AccountType = accountType;
+        this.Customer = customer;
     }
 
     //For Account Opening
@@ -28,22 +24,28 @@ public abstract class BankAccount {
     }
 
     public  int getAccountNo() {
-        return AccountNo;
+        return this.AccountNo;
     }
 
     public LocalDate getDateOpened() {
-        return dateOpened;
+        return this.dateOpened;
     }
 
     public Customer getCustomer() {
-        return Customer;
+        return this.Customer;
     }
 
     public Double getBalance() {
-        return Balance;
+        return this.Balance;
+    }
+
+    public String getAccountType(){
+        return this.AccountType;
     }
 
     public void setCustomer(Customer customer) {
         this.Customer = customer;
     }
+
+
 }
