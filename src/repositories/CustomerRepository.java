@@ -244,9 +244,9 @@
                     int addressRows = statement2.executeUpdate();
                     int contactRows = statement3.executeUpdate();
 
-                    System.out.println(STR."Customer rows: \{customerRows}");
-                    System.out.println(STR."Address rows: \{addressRows}");
-                    System.out.println(STR."Contact rows: \{contactRows}");
+                    System.out.println("Customer rows: " + customerRows);
+                    System.out.println("Address rows: " + addressRows);
+                    System.out.println("Contact rows: " + contactRows);
                     connection.commit();
 
                 } catch (SQLException e){

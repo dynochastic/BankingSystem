@@ -2,6 +2,7 @@ package repositories;
 
 import config.DatabaseConnection;
 
+import exceptions.NonZeroBalanceException;
 import models.*;
 
 import java.sql.*;
@@ -121,23 +122,27 @@ public class AccountRepository {
         }
     }
 
-    public void closeAccount(BankAccount account) throws SQLException{
+    public boolean closeAccount(BankAccount account) throws NonZeroBalanceException, SQLException{
         String query = "UPDATE bank_accounts SET status = 'CLOSED' WHERE account_no = ?";
 
         try(Connection connection = connectDB.connect();
-        PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            PreparedStatement preparedStatement = connection.prepareStatement(query))
+        {
             connection.setAutoCommit(false);
-
             try{
+                if (account.getBalance() > 0) {
+                    throw new NonZeroBalanceException("Cannot close account: balance is not zero.\nAccount Balance: " + account.getBalance());
+                }
+
                 preparedStatement.setLong(1, account.getAccountNo());
                 preparedStatement.executeUpdate();
                 connection.commit();
+                return true;
 
             }catch (SQLException sqlException){
                 connection.rollback();
                 throw sqlException;
             }
-
         }
     }
 }

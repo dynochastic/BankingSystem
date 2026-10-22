@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.NonZeroBalanceException;
 import models.BankAccount;
 import models.CheckAccount;
 import models.Savings;
@@ -20,7 +21,6 @@ public class AccountController {
             repository.openCheckAccount(checkAccount, product_ID);
 
         }catch (SQLException e){
-            e.printStackTrace();
             return false;
         }
         return true;
@@ -48,12 +48,18 @@ public class AccountController {
         }
     }
 
-    public void closeAccount(BankAccount account){
+    public boolean closeAccount(BankAccount account){
         try{
             repository.closeAccount(account);
         }
         catch (SQLException sqlException){
             sqlException.printStackTrace();
+            return false;
         }
+        catch (NonZeroBalanceException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }
