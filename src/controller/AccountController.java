@@ -18,11 +18,13 @@ public class AccountController {
         try {
             int product_ID = repository.findProductbyID("regular checking");
             repository.openCheckAccount(checkAccount, product_ID);
+
         }catch (SQLException e){
             e.printStackTrace();
             return false;
         }
         return true;
+
     }
 
     public boolean openRegularSavings(Savings savings){
@@ -43,6 +45,15 @@ public class AccountController {
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
             return null;
+        }
+    }
+
+    public void closeAccount(BankAccount account){
+        try{
+            repository.closeAccount(account);
+        }
+        catch (SQLException sqlException){
+            sqlException.printStackTrace();
         }
     }
 }

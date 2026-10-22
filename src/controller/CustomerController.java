@@ -19,7 +19,6 @@ public class CustomerController {
     }
 
     public long registerCustomer(Customer customer) {
-
         try {
             if (!validation.isValidCustomer(customer)) {
                 return 0;
@@ -73,11 +72,11 @@ public class CustomerController {
         try {
             if (validation.isValidCustomer(customer)){
                 customerRepository.updateCustomer(customer);
-                return true;
             }
         }catch (SQLException e){
             e.printStackTrace();
+            return false;
         }
-        return false;
+        return true;
     }
 }

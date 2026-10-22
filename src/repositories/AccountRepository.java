@@ -51,8 +51,7 @@ public class AccountRepository {
                 connection.commit();
             } catch (SQLException rollbackException) {
                 connection.rollback();
-                rollbackException.printStackTrace();
-                return false;
+                throw rollbackException;
             }
         }
         return true;
@@ -75,8 +74,7 @@ public class AccountRepository {
                 connection.commit();
             } catch (SQLException rollbackException) {
                 connection.rollback();
-                rollbackException.printStackTrace();
-                return false;
+                throw rollbackException;
             }
         }
         return true;
@@ -117,9 +115,29 @@ public class AccountRepository {
                     return new CheckAccount(account_no, balance, account_type, customer);
                 }
                 else {
-                    return null;
+                    throw new SQLException();
                 }
             }
+        }
+    }
+
+    public void closeAccount(BankAccount account) throws SQLException{
+        String query = "UPDATE bank_accounts SET status = 'CLOSED' WHERE account_no = ?";
+
+        try(Connection connection = connectDB.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            connection.setAutoCommit(false);
+
+            try{
+                preparedStatement.setLong(1, account.getAccountNo());
+                preparedStatement.executeUpdate();
+                connection.commit();
+
+            }catch (SQLException sqlException){
+                connection.rollback();
+                throw sqlException;
+            }
+
         }
     }
 }
