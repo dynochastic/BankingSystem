@@ -6,13 +6,15 @@ public abstract class BankAccount {
     private double Balance;
     private LocalDate dateOpened;
     private String AccountType;
+    private String AccountStatus;
     private Customer Customer;
 
 
-    public BankAccount(int accountNo, double initialBalance, String accountType, Customer customer) {
+    public BankAccount(int accountNo, double initialBalance, String accountType, String accountStatus, Customer customer) {
         this.AccountNo = accountNo;
         this.Balance = initialBalance;
         this.AccountType = accountType;
+        this.AccountStatus = accountStatus;
         this.Customer = customer;
     }
 
@@ -42,7 +44,9 @@ public abstract class BankAccount {
     public String getAccountType(){
         return this.AccountType;
     }
-
+    public String getAccountStatus(){
+        return this.AccountStatus;
+    }
     public void setCustomer(Customer customer) {
         this.Customer = customer;
     }

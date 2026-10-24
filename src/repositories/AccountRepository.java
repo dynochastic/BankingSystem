@@ -2,6 +2,8 @@ package repositories;
 
 import config.DatabaseConnection;
 
+import exceptions.ClosedAccountException;
+import exceptions.FrozenAccountException;
 import exceptions.NonZeroBalanceException;
 import models.*;
 
@@ -85,7 +87,7 @@ public class AccountRepository {
     public BankAccount findByAccountId(long id) throws SQLException {
 
         String query = "SELECT c.customer_id, c.first_name, COALESCE(c.middle_name, '') as middle_name, c.last_name, c.birth_date, c.sex, " +
-                "ba.account_no, ba.balance, ap.account_type " +
+                "ba.account_no, ba.balance, ba.status, ap.account_type " +
                 " FROM bank_accounts ba LEFT JOIN account_products ap ON ba.product_id = ap.product_id LEFT JOIN customers c ON c.customer_id = ba.customer_id WHERE ba.account_no = ?";
 
         try (Connection connection = connectDB.connect();
@@ -101,6 +103,7 @@ public class AccountRepository {
                 String account_type = rs.getString("account_type");
                 int account_no = rs.getInt("account_no");
                 double balance = rs.getDouble("balance");
+                String account_status = rs.getString("status");
                 long cust_id = rs.getLong("customer_id");
                 String first_name = rs.getString("first_name");
                 String middle_name = rs.getString("middle_name");
@@ -111,9 +114,9 @@ public class AccountRepository {
                 Customer customer = new Customer(cust_id, first_name, middle_name, last_name, birth_date, sex);
 
                 if ("savings".equalsIgnoreCase(account_type)) {
-                    return new Savings(account_no, balance, account_type, customer);
+                    return new Savings(account_no, balance, account_type, account_status,customer);
                 } else if ("checking".equalsIgnoreCase(account_type)) {
-                    return new CheckAccount(account_no, balance, account_type, customer);
+                    return new CheckAccount(account_no, balance, account_type, account_status ,customer);
                 }
                 else {
                     throw new SQLException();
@@ -144,6 +147,37 @@ public class AccountRepository {
                 throw sqlException;
             }
         }
+    }
+    public boolean freezeAccount(BankAccount account) throws SQLException, ClosedAccountException{
+        String status = "";
+        String query = "UPDATE bank_accounts SET status = 'FROZEN' WHERE account_no = ?";
+        String confirmQuery = "SELECT * FROM bank_accounts WHERE account_no = ?"; // check if account is close
+        try(Connection connection = connectDB.connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement2 = connection.prepareStatement(confirmQuery)){
+            connection.setAutoCommit(false);
+
+            preparedStatement2.setLong(1, account.getAccountNo());
+            try (ResultSet rs = preparedStatement2.executeQuery()) {
+                if (rs.next()) {
+                    status = rs.getString("status");
+                }
+                if (status.equalsIgnoreCase("CLOSED")) throw new ClosedAccountException("Account Not Found");
+                else if (status.equalsIgnoreCase("FROZEN"))
+                    throw new FrozenAccountException("Account is already FROZEN");
+            }
+
+            try{
+                preparedStatement.setLong(1, account.getAccountNo());
+                preparedStatement.executeUpdate();
+                connection.commit();
+
+            }catch (SQLException sqlException){
+                connection.rollback();
+                throw sqlException;
+            }
+        }
+        return true;
     }
 }
 

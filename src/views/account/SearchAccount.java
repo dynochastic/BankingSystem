@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class SearchAccount {
 
+
     private final Scanner scanner;
     private final AccountController controller;
 

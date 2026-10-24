@@ -1,5 +1,7 @@
 package controller;
 
+import exceptions.ClosedAccountException;
+import exceptions.FrozenAccountException;
 import exceptions.NonZeroBalanceException;
 import models.BankAccount;
 import models.CheckAccount;
@@ -58,6 +60,23 @@ public class AccountController {
         }
         catch (NonZeroBalanceException e){
             System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    public boolean freezeAccount(BankAccount account){
+        try{
+           repository.freezeAccount(account);
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            return false;
+        }
+        catch (ClosedAccountException closedAccountException){
+            System.out.println(closedAccountException.getMessage());
+            return false;
+        }
+        catch (FrozenAccountException frozenAccountException){
+            System.out.println(frozenAccountException.getMessage());
             return false;
         }
         return true;
