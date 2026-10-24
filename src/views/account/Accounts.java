@@ -24,6 +24,7 @@ public class Accounts {
         System.out.println("2. Search Account");
         System.out.println("3. Manage Account");
         System.out.println("4. Close an Account");
+        System.out.println("5. Back");
 
 
         System.out.print("What would you like to do?  ");
@@ -36,6 +37,10 @@ public class Accounts {
             case 2 -> searchAccount.searchAccount();
             case 3 -> manageAccountStatus.manageAccountStatus();
             case 4 -> closeAccount.closeAccount();
+            case 5 -> {
+                return;
+            }
+
         }
     }
 }

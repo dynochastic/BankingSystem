@@ -2,8 +2,8 @@ package models;
 
 public class CheckAccount extends BankAccount{
 
-    public CheckAccount(int AccountNo, double initialBalance, String accountType, Customer customer){
-        super(AccountNo, initialBalance, accountType,  customer);
+    public CheckAccount(int AccountNo, double initialBalance, String accountType, String accountStatus , Customer customer){
+        super(AccountNo, initialBalance, accountType, accountStatus ,customer);
     }
 
     //Account Creation

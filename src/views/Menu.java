@@ -9,6 +9,7 @@ public class Menu {
     private final Scanner scanner;
     private final CustomerService custAction;
     private final Accounts accountAction;
+
     public Menu(Scanner scanner){
         this.scanner = scanner;
         custAction = new CustomerService(scanner);
@@ -29,7 +30,8 @@ public class Menu {
             System.out.println("1. Customer");
             System.out.println("2. Account");
             System.out.println("3. Transaction");
-            System.out.println("4. Balance Inquiry");
+            System.out.println("4. Exit");
+
 
             System.out.println("======================================");
 
@@ -44,7 +46,8 @@ public class Menu {
                     }
                     case 2 ->accountAction.accountAction();
                     case 3 -> custAction.customerMenu();
-                    case 4 -> custAction.customerMenu();
+                    case 4 -> System.exit(0);
+
                     default -> System.out.println("\u001B[31mOption Invalid.\u001B[0m");
 
                 }

@@ -17,28 +17,28 @@ public class AccountController {
         this.repository = new AccountRepository();
     }
 
-    public boolean openChecking(CheckAccount checkAccount){
+    public long openChecking(CheckAccount checkAccount){
+        long id;
         try {
             int product_ID = repository.findProductbyID("regular checking");
-            repository.openCheckAccount(checkAccount, product_ID);
-
+            id = repository.openCheckAccount(checkAccount, product_ID);
         }catch (SQLException e){
-            return false;
+            e.getMessage();
+            return 0;
         }
-        return true;
-
+        return id;
     }
 
-    public boolean openRegularSavings(Savings savings){
-
+    public long openRegularSavings(Savings savings){
+        long id;
         try {
             int product_ID = repository.findProductbyID("regular savings");
-            repository.openSavingsAccount(savings, product_ID);
+            id = repository.openSavingsAccount(savings, product_ID);
         }catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
-        return true;
+        return id;
     }
 
     public BankAccount findAccountById(long id){
@@ -78,6 +78,22 @@ public class AccountController {
         catch (FrozenAccountException frozenAccountException){
             System.out.println(frozenAccountException.getMessage());
             return false;
+        }
+        return true;
+    }
+
+    public boolean reactivateAccount(BankAccount account){
+        try{
+            repository.reactivateAccount(account);
+        }catch (ClosedAccountException closedAccountException){
+            System.out.println(closedAccountException.getMessage());
+            return false;
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            return false;
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return true;
     }

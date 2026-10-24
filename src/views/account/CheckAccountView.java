@@ -26,15 +26,13 @@ public class CheckAccountView {
         }
 
         CheckAccount checkAccount = new CheckAccount(initialDeposit, customer);
-        boolean isSuccess = controller.openChecking(checkAccount);
+        long id = controller.openChecking(checkAccount);
 
-        if (isSuccess){
-            System.out.println("\u001B[32mCheck Account Successfully Created.\u001B[0m");
-
+        if (id == 0){
+            System.out.println("\u001B[31mAccount Opening Failed. Please Try Again.\u001B[31m");
         }
         else{
-            System.out.println("\u001B[31mAccount Opening Failed. Please Try Again.\u001B[31m");
-
+            System.out.println("\u001B[32mAccount NO. "+ id + " Successfully Created.\u001B[0m"); //To add to the Account display
         }
     }
 }

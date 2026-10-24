@@ -1,205 +1,202 @@
-    package repositories;
+package repositories;
 
-    import config.DatabaseConnection;
-    import models.ContactDetails;
-    import models.Customer;
-    import models.CustomerAddress;
+import config.DatabaseConnection;
+import models.BankAccount;
+import models.ContactDetails;
+import models.Customer;
+import models.CustomerAddress;
 
-    import java.sql.*;
-    import java.util.ArrayList;
-    import java.util.List;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
-    public class CustomerRepository {
+public class CustomerRepository {
 
-        public final DatabaseConnection connectDB;
+    public final DatabaseConnection connectDB;
 
-        public CustomerRepository() {
-            this.connectDB = new DatabaseConnection();
-        }
+    public CustomerRepository() {
+        this.connectDB = new DatabaseConnection();
+    }
 
-        public long createCustomer(Customer customer) throws SQLException {
+    public long createCustomer(Customer customer) throws SQLException {
 
-            Connection connection = connectDB.connect();
-            String query = "INSERT INTO customers(first_name, middle_name, last_name, birth_date, sex) values (?,?,?,?,?)";
-            String query2 = "INSERT INTO address(brgy, municipality, province, country, postal_code, customer_id) values (?, ?, ?, ?, ?, ?)";
-            String query3 = "INSERT INTO contacts(mobile_number, email_address, telephone_number, customer_id) values (?,?,?,?)";
-            long customer_id = 0;
+        Connection connection = connectDB.connect();
+        String query = "INSERT INTO customers(first_name, middle_name, last_name, birth_date, sex) values (?,?,?,?,?)";
+        String query2 = "INSERT INTO address(brgy, municipality, province, country, postal_code, customer_id) values (?, ?, ?, ?, ?, ?)";
+        String query3 = "INSERT INTO contacts(mobile_number, email_address, telephone_number, customer_id) values (?,?,?,?)";
+        long customer_id = 0;
 
-            connection.setAutoCommit(false);
+        connection.setAutoCommit(false);
 
-            try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                 PreparedStatement addressStatement = connection.prepareStatement(query2);
-                 PreparedStatement contactStatement = connection.prepareStatement(query3)) {
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement addressStatement = connection.prepareStatement(query2);
+             PreparedStatement contactStatement = connection.prepareStatement(query3)) {
 
-                statement.setString(1, customer.getFirstName());
-                statement.setString(2, customer.getMiddleName());
-                statement.setString(3, customer.getLastName());
-                statement.setDate(4, Date.valueOf(customer.getBirthDate()));
-                statement.setString(5, String.valueOf(customer.getSex()));
+            statement.setString(1, customer.getFirstName());
+            statement.setString(2, customer.getMiddleName());
+            statement.setString(3, customer.getLastName());
+            statement.setDate(4, Date.valueOf(customer.getBirthDate()));
+            statement.setString(5, String.valueOf(customer.getSex()));
 
-                statement.executeUpdate();
-                try (ResultSet rs = statement.getGeneratedKeys()){
-                    if (!rs.next()) {
-                        throw new SQLException("Failed to retrieve customer ID");
-                    }
-                    customer_id = rs.getLong(1);
+            statement.executeUpdate();
+            try (ResultSet rs = statement.getGeneratedKeys()) {
+                if (!rs.next()) {
+                    throw new SQLException("Failed to retrieve customer ID");
                 }
-
-                addressStatement.setString(1, customer.getAddress().getBrgy());
-                addressStatement.setString(2, customer.getAddress().getMunicipality());
-                addressStatement.setString(3, customer.getAddress().getProvince());
-                addressStatement.setString(4, customer.getAddress().getCountry());
-                addressStatement.setString(5, customer.getAddress().getPostal());
-                addressStatement.setLong(6, customer_id);
-
-                addressStatement.executeUpdate();
-
-                contactStatement.setString(1, customer.getContact().getPhoneNumber());
-                contactStatement.setString(2, customer.getContact().getEmailAddress());
-                contactStatement.setString(3, customer.getContact().getTelephoneNumber());
-                contactStatement.setLong(4, customer_id);
-
-                contactStatement.executeUpdate();
-
-                connection.commit();
-                System.out.println("Customer Added to the database.");
+                customer_id = rs.getLong(1);
             }
-            catch (SQLException e){
-                connection.rollback();
-                throw e;
-            }
-            finally {
-                connection.close();
-            }
-            return customer_id;
+
+            addressStatement.setString(1, customer.getAddress().getBrgy());
+            addressStatement.setString(2, customer.getAddress().getMunicipality());
+            addressStatement.setString(3, customer.getAddress().getProvince());
+            addressStatement.setString(4, customer.getAddress().getCountry());
+            addressStatement.setString(5, customer.getAddress().getPostal());
+            addressStatement.setLong(6, customer_id);
+
+            addressStatement.executeUpdate();
+
+            contactStatement.setString(1, customer.getContact().getPhoneNumber());
+            contactStatement.setString(2, customer.getContact().getEmailAddress());
+            contactStatement.setString(3, customer.getContact().getTelephoneNumber());
+            contactStatement.setLong(4, customer_id);
+
+            contactStatement.executeUpdate();
+
+            connection.commit();
+            System.out.println("Customer Added to the database.");
+        } catch (SQLException e) {
+            connection.rollback();
+            throw e;
+        } finally {
+            connection.close();
         }
+        return customer_id;
+    }
 
-        public List<Customer> findCustomerByName(String name) throws SQLException{
+    public List<Customer> findCustomerByName(String name) throws SQLException {
 
-            List<Customer> customers = new ArrayList<>();
+        List<Customer> customers = new ArrayList<>();
 
-            String query = "SELECT " +
-                    "c.customer_id, " +
-                    "c.first_name, " + "c.middle_name, " + "c.last_name, " +
-                    "c.birth_date, " + "c.sex, " +
-                    "a.brgy, " + "a.municipality, " + "a.province, " + "a.postal_code, " + "a.country, " +
-                    "ct.mobile_number, " + "ct.email_address, " + "ct.telephone_number " +
-                    "FROM customers c " +
-                    "LEFT JOIN address a " +
-                    "ON c.customer_id = a.customer_id " +
-                    "LEFT JOIN contacts ct " +
-                    "ON c.customer_id = ct.customer_id WHERE c.first_name LIKE ? OR " +
-                    "c.middle_name LIKE ?" + " OR c.last_name LIKE ?;";
-            try (Connection connection = connectDB.connect();
-                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setString(1, "%" + name + "%");
-                preparedStatement.setString(2, "%" + name + "%");
-                preparedStatement.setString(3, "%" + name + "%");
+        String query = "SELECT " +
+                "c.customer_id, " +
+                "c.first_name, " + "c.middle_name, " + "c.last_name, " +
+                "c.birth_date, " + "c.sex, " +
+                "a.brgy, " + "a.municipality, " + "a.province, " + "a.postal_code, " + "a.country, " +
+                "ct.mobile_number, " + "ct.email_address, " + "ct.telephone_number " +
+                "FROM customers c " +
+                "LEFT JOIN address a " +
+                "ON c.customer_id = a.customer_id " +
+                "LEFT JOIN contacts ct " +
+                "ON c.customer_id = ct.customer_id WHERE c.first_name LIKE ? OR " +
+                "c.middle_name LIKE ?" + " OR c.last_name LIKE ?;";
+        try (Connection connection = connectDB.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + name + "%");
+            preparedStatement.setString(2, "%" + name + "%");
+            preparedStatement.setString(3, "%" + name + "%");
 
-                ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                while (resultSet.next()) {
-                    CustomerAddress address = new CustomerAddress(
-                            resultSet.getString("brgy"),
-                            resultSet.getString("municipality"),
-                            resultSet.getString("province"),
-                            resultSet.getString("postal_code"),
-                            resultSet.getString("country")
-                    );
-                    ContactDetails contacts = new ContactDetails(
-                            resultSet.getString("mobile_number"),
-                            resultSet.getString("email_address"),
-                            resultSet.getString("telephone_number")
-                    );
-
-                    Customer customer = new Customer(
-                            resultSet.getLong("customer_id"),
-                            resultSet.getString("first_name"),
-                            resultSet.getString("middle_name"),
-                            resultSet.getString("last_name"),
-                            resultSet.getDate("birth_date").toLocalDate(),
-                            resultSet.getString("sex").charAt(0),
-                            address, contacts
-                    );
-
-                    customers.add(customer);
-                }
-            }
-            catch (Exception e){
-                throw e;
-            }
-            return customers;
-        }
-
-        public Customer findCustomerById(long id) throws SQLException {
-
-            String query = "SELECT c.customer_id," +
-                    "c.first_name, " + "c.middle_name, " + "c.last_name, " +
-                    "c.birth_date, " + "c.sex, " +
-                    "a.brgy, " + "a.municipality, " + "a.province, " + "a.postal_code, " + "a.country, " +
-                    "ct.mobile_number, " + "ct.email_address, " +
-                    "ct.telephone_number FROM customers c LEFT JOIN address a ON " +
-                    "c.customer_id = a.customer_id LEFT JOIN contacts ct ON a.customer_id = ct.customer_id " +
-                    "WHERE c.customer_id = ?;";
-
-            try (Connection connection = connectDB.connect();
-                 PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setLong(1, id);
-
-                ResultSet result = statement.executeQuery();
-
-                if (!result.next())  return null;
-
+            while (resultSet.next()) {
                 CustomerAddress address = new CustomerAddress(
-                        result.getString("brgy"),
-                        result.getString("municipality"),
-                        result.getString("province"),
-                        result.getString("country"),
-                        result.getString("postal_code")
+                        resultSet.getString("brgy"),
+                        resultSet.getString("municipality"),
+                        resultSet.getString("province"),
+                        resultSet.getString("postal_code"),
+                        resultSet.getString("country")
                 );
                 ContactDetails contacts = new ContactDetails(
-                        result.getString("mobile_number"),
-                        result.getString("email_address"),
-                        result.getString("telephone_number")
+                        resultSet.getString("mobile_number"),
+                        resultSet.getString("email_address"),
+                        resultSet.getString("telephone_number")
                 );
 
                 Customer customer = new Customer(
-                        result.getLong("customer_id"),
-                        result.getString("first_name"),
-                        result.getString("middle_name"),
-                        result.getString("last_name"),
-                        result.getDate("birth_date").toLocalDate(),
-                        result.getString("sex").charAt(0),
+                        resultSet.getLong("customer_id"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("middle_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getDate("birth_date").toLocalDate(),
+                        resultSet.getString("sex").charAt(0),
                         address, contacts
                 );
-                return customer;
+
+                customers.add(customer);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return customers;
+    }
+
+    public Customer findCustomerById(long id) throws SQLException {
+
+        String query = "SELECT c.customer_id," +
+                "c.first_name, " + "c.middle_name, " + "c.last_name, " +
+                "c.birth_date, " + "c.sex, " +
+                "a.brgy, " + "a.municipality, " + "a.province, " + "a.postal_code, " + "a.country, " +
+                "ct.mobile_number, " + "ct.email_address, " +
+                "ct.telephone_number FROM customers c LEFT JOIN address a ON " +
+                "c.customer_id = a.customer_id LEFT JOIN contacts ct ON a.customer_id = ct.customer_id " +
+                "WHERE c.customer_id = ?;";
+
+        try (Connection connection = connectDB.connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, id);
+
+            ResultSet result = statement.executeQuery();
+
+            if (!result.next()) return null;
+
+            CustomerAddress address = new CustomerAddress(
+                    result.getString("brgy"),
+                    result.getString("municipality"),
+                    result.getString("province"),
+                    result.getString("country"),
+                    result.getString("postal_code")
+            );
+            ContactDetails contacts = new ContactDetails(
+                    result.getString("mobile_number"),
+                    result.getString("email_address"),
+                    result.getString("telephone_number")
+            );
+
+            Customer customer = new Customer(
+                    result.getLong("customer_id"),
+                    result.getString("first_name"),
+                    result.getString("middle_name"),
+                    result.getString("last_name"),
+                    result.getDate("birth_date").toLocalDate(),
+                    result.getString("sex").charAt(0),
+                    address, contacts
+            );
+            return customer;
+        }
+    }
+
+    public boolean deleteCustomer(Customer customer) throws SQLException {
+
+
+        String query = "DELETE FROM customers WHERE customer_id = ?;";
+
+        try (Connection connection = connectDB.connect();
+             PreparedStatement statement = connection.prepareStatement(query);) {
+            connection.setAutoCommit(false);
+            try {
+                statement.setLong(1, customer.getCustomerID());
+                statement.executeUpdate();
+                connection.commit();
+
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
             }
         }
+        return true;
+    }
 
-        public boolean deleteCustomer(Customer customer) throws SQLException{
-
-
-            String query = "DELETE FROM customers WHERE customer_id = ?;";
-
-            try (Connection connection = connectDB.connect();
-            PreparedStatement statement = connection.prepareStatement(query);){
-                connection.setAutoCommit(false);
-                try {
-                    statement.setLong(1, customer.getCustomerID());
-                    statement.executeUpdate();
-                    connection.commit();
-
-                }
-                catch (SQLException e){
-                    connection.rollback();
-                    throw e;
-                }
-            }
-            return true;
-        }
-
-        public void updateCustomer(Customer customer) throws SQLException{
+    public void updateCustomer(Customer customer) throws SQLException {
 
         String customerQuery = " UPDATE customers " +
                 "SET first_name = ?, middle_name = ?, last_name = ?, birth_date = ?, sex = ? " +
@@ -213,46 +210,46 @@
                 "SET mobile_number = ?, email_address = ?, telephone_number = ? " +
                 "WHERE customer_id = ?;";
 
-            try (Connection connection = connectDB.connect();
-                 PreparedStatement statement1 = connection.prepareStatement(customerQuery);
-                 PreparedStatement statement2 = connection.prepareStatement(addressQuery);
-                 PreparedStatement statement3 = connection.prepareStatement(contactsQuery)
-            ){
-                try {
-                    connection.setAutoCommit(false);
+        try (Connection connection = connectDB.connect();
+             PreparedStatement statement1 = connection.prepareStatement(customerQuery);
+             PreparedStatement statement2 = connection.prepareStatement(addressQuery);
+             PreparedStatement statement3 = connection.prepareStatement(contactsQuery)
+        ) {
+            try {
+                connection.setAutoCommit(false);
 
-                    statement1.setString(1, customer.getFirstName());
-                    statement1.setString(2, customer.getMiddleName());
-                    statement1.setString(3, customer.getLastName());
-                    statement1.setDate(4, Date.valueOf(customer.getBirthDate()));
-                    statement1.setString(5, String.valueOf(customer.getSex()));
-                    statement1.setLong(6, customer.getCustomerID());
+                statement1.setString(1, customer.getFirstName());
+                statement1.setString(2, customer.getMiddleName());
+                statement1.setString(3, customer.getLastName());
+                statement1.setDate(4, Date.valueOf(customer.getBirthDate()));
+                statement1.setString(5, String.valueOf(customer.getSex()));
+                statement1.setLong(6, customer.getCustomerID());
 
-                    statement2.setString(1, customer.getAddress().getBrgy());
-                    statement2.setString(2, customer.getAddress().getMunicipality());
-                    statement2.setString(3, customer.getAddress().getProvince());
-                    statement2.setString(4, customer.getAddress().getCountry());
-                    statement2.setString(5, customer.getAddress().getPostal());
-                    statement2.setLong(6, customer.getCustomerID());
+                statement2.setString(1, customer.getAddress().getBrgy());
+                statement2.setString(2, customer.getAddress().getMunicipality());
+                statement2.setString(3, customer.getAddress().getProvince());
+                statement2.setString(4, customer.getAddress().getCountry());
+                statement2.setString(5, customer.getAddress().getPostal());
+                statement2.setLong(6, customer.getCustomerID());
 
-                    statement3.setString(1, customer.getContact().getPhoneNumber());
-                    statement3.setString(2, customer.getContact().getEmailAddress());
-                    statement3.setString(3, customer.getContact().getTelephoneNumber());
-                    statement3.setLong(4, customer.getCustomerID());
+                statement3.setString(1, customer.getContact().getPhoneNumber());
+                statement3.setString(2, customer.getContact().getEmailAddress());
+                statement3.setString(3, customer.getContact().getTelephoneNumber());
+                statement3.setLong(4, customer.getCustomerID());
 
-                    int customerRows = statement1.executeUpdate();
-                    int addressRows = statement2.executeUpdate();
-                    int contactRows = statement3.executeUpdate();
+                int customerRows = statement1.executeUpdate();
+                int addressRows = statement2.executeUpdate();
+                int contactRows = statement3.executeUpdate();
 
-                    System.out.println("Customer rows: " + customerRows);
-                    System.out.println("Address rows: " + addressRows);
-                    System.out.println("Contact rows: " + contactRows);
-                    connection.commit();
+                System.out.println("Customer rows: " + customerRows);
+                System.out.println("Address rows: " + addressRows);
+                System.out.println("Contact rows: " + contactRows);
+                connection.commit();
 
-                } catch (SQLException e){
-                    connection.rollback();
-                    throw e;
-                }
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
             }
         }
     }
+}

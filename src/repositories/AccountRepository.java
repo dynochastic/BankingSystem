@@ -9,6 +9,7 @@ import models.*;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.List;
 
 public class AccountRepository {
 
@@ -36,11 +37,12 @@ public class AccountRepository {
         }
     }
 
-    public boolean openSavingsAccount(Savings savings, int productId) throws SQLException {
+    public long openSavingsAccount(Savings savings, int productId) throws SQLException {
         String query1 = "INSERT INTO bank_accounts (customer_id, product_id, balance) values (?,?,?)";
+        long account_no = 0;
 
         try (Connection connection = connectDB.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(query1)
+             PreparedStatement preparedStatement = connection.prepareStatement(query1,  new String[]{"account_no"})//returns the column of generated ids
         ) {
             connection.setAutoCommit(false);
 
@@ -52,20 +54,27 @@ public class AccountRepository {
                 preparedStatement.executeUpdate();
 
                 connection.commit();
+
+                try(ResultSet rs = preparedStatement.getGeneratedKeys()){
+                    if (rs.next()){
+                        account_no =  rs.getLong(1);
+                    }
+                }
             } catch (SQLException rollbackException) {
                 connection.rollback();
                 throw rollbackException;
             }
         }
-        return true;
+        return account_no;
     }
 
 
-    public boolean openCheckAccount(CheckAccount checkAccount, int productId) throws SQLException {
+    public long openCheckAccount(CheckAccount checkAccount, int productId) throws SQLException {
 
+        long account_no = 0;
         String query = "INSERT INTO bank_accounts (customer_id, product_id, balance) VALUES  (?,?,?);";
         try (Connection connection = connectDB.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, new String[]{"account_no"})) {
             connection.setAutoCommit(false);
             try {
                 preparedStatement.setLong(1, checkAccount.getCustomer().getCustomerID());
@@ -75,12 +84,18 @@ public class AccountRepository {
                 preparedStatement.executeUpdate();
 
                 connection.commit();
+
+                try(ResultSet rs = preparedStatement.getGeneratedKeys()){
+                    if(rs.next()){
+                        account_no = rs.getLong("account_no");
+                    }
+                }
             } catch (SQLException rollbackException) {
                 connection.rollback();
                 throw rollbackException;
             }
         }
-        return true;
+        return account_no;
     }
 
     // returns Account with customer details
@@ -167,6 +182,37 @@ public class AccountRepository {
                     throw new FrozenAccountException("Account is already FROZEN");
             }
 
+            try{
+                preparedStatement.setLong(1, account.getAccountNo());
+                preparedStatement.executeUpdate();
+                connection.commit();
+
+            }catch (SQLException sqlException){
+                connection.rollback();
+                throw sqlException;
+            }
+        }
+        return true;
+    }
+    public boolean reactivateAccount(BankAccount account) throws SQLException, ClosedAccountException, Exception{
+
+        String status = "";
+        String query = "UPDATE bank_accounts SET status = 'ACTIVE' WHERE account_no = ?";
+        String confirmQuery = "SELECT * FROM bank_accounts WHERE account_no = ?"; // check if account is currently active or close
+
+        try(Connection connection = connectDB.connect();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement2 = connection.prepareStatement(confirmQuery)){
+            connection.setAutoCommit(false);
+
+            preparedStatement2.setLong(1, account.getAccountNo());
+            try (ResultSet rs = preparedStatement2.executeQuery()) {
+                if (rs.next()) {
+                    status = rs.getString("status");
+                }
+                if (status.equalsIgnoreCase("CLOSED")) throw new ClosedAccountException("Account Not Found");
+                else if (status.equalsIgnoreCase("ACTIVE")) throw new Exception("Account is currently Active.");
+            }
             try{
                 preparedStatement.setLong(1, account.getAccountNo());
                 preparedStatement.executeUpdate();
