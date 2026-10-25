@@ -47,6 +47,11 @@ public abstract class BankAccount {
     public String getAccountStatus(){
         return this.AccountStatus;
     }
+
+    public void setBalance(double balance){
+        this.Balance = balance;
+
+    }
     public void setCustomer(Customer customer) {
         this.Customer = customer;
     }
