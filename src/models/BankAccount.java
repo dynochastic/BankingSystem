@@ -24,7 +24,6 @@ public abstract class BankAccount {
         this.dateOpened = LocalDate.now();
         this.Customer = customer;
     }
-
     public  int getAccountNo() {
         return this.AccountNo;
     }
@@ -55,6 +54,7 @@ public abstract class BankAccount {
     public void setCustomer(Customer customer) {
         this.Customer = customer;
     }
+
 
 
 }

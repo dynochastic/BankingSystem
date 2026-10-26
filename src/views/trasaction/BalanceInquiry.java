@@ -1,5 +1,7 @@
 package views.trasaction;
 
+import models.BankAccount;
+
 import java.util.Scanner;
 
 public class BalanceInquiry {
@@ -9,7 +11,7 @@ public class BalanceInquiry {
         this.scanner = scanner;
     }
 
-    public void balanceInquiry(){
+    public void balanceInquiry(BankAccount account){
 
     }
 }

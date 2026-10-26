@@ -86,8 +86,8 @@ public class ManageAccountStatus {
     public BankAccount searchAccount(){
         System.out.print("Enter the Account No: ");
         long id = scanner.nextInt();
-        scanner.nextLine();
 
+        scanner.nextLine();
         BankAccount account = controller.findAccountById(id);
         return account;
     }

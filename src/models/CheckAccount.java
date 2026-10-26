@@ -1,7 +1,7 @@
 package models;
 
 public class CheckAccount extends BankAccount{
-
+    private final double minimumDeposit = 10000;
     public CheckAccount(int AccountNo, double initialBalance, String accountType, String accountStatus , Customer customer){
         super(AccountNo, initialBalance, accountType, accountStatus ,customer);
     }

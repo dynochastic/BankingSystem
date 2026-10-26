@@ -49,8 +49,16 @@ public class TransactionController {
             return false;
         }
     }
-    public void transfer(BankAccount account){
-
+    public boolean transfer(BankAccount sender, BankAccount recipient, double amount){
+        try {
+            return transactionRepository.transfer(sender, recipient, amount);
+        }catch (SQLException sqlException){
+            sqlException.getMessage();
+            return false;
+        }catch (InsufficientBalanceException insufficientBalanceException){
+            insufficientBalanceException.getMessage();
+            return false;
+        }
     }
     public void balanceInquiry(BankAccount account){
 

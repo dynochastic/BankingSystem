@@ -93,30 +93,32 @@ public class TransactionRepository {
         }
     }
 
-    public boolean transfer(BankAccount account, double amount)throws SQLException, InsufficientBalanceException {
+    public boolean  transfer(BankAccount account, BankAccount recipient, double amount)throws SQLException, InsufficientBalanceException {
 
-        String deductQuery = "UPDATE bank_accounts SET balance = balance - ? WHERE account_no = ?"; //Source
-        String addQuery = "UPDATE bank_accounts SET balance = balance + ? WHERE account_no = ?"; //Destination
+        String deductQuery = "UPDATE bank_accounts SET balance = balance - ? WHERE account_no = ? RETURNING balance"; //Sender
+        String addQuery = "UPDATE bank_accounts SET balance = balance + ? WHERE account_no = ?"; //Recipient
 
         try(Connection connection = connectDB.connect();
-            PreparedStatement deductStatement = connection.prepareStatement(deductQuery);
+            PreparedStatement deductStatement = connection.prepareStatement(deductQuery, new String[] {"balance"});
             PreparedStatement addStatement = connection.prepareStatement(addQuery);
             ){
             connection.setAutoCommit(false);
 
-
             if (amount > account.getBalance()){
                 throw new InsufficientBalanceException("Insufficient Balance. Please Try Again.");
             }
+
             deductStatement.setDouble(1, amount);
             deductStatement.setLong(2, account.getAccountNo());
+            deductStatement.executeUpdate();
+            addStatement.setDouble(1, amount);
+            addStatement.setLong(2, recipient.getAccountNo());
+            addStatement.executeUpdate();
 
             connection.commit();
+
 
         }
         return true;
     }
-    public void checkReceipient(){
-    }
-
 }
